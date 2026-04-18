@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Custom 3D printing — see what we can make and get in touch for a quote.">
+  <title>Printstore · Custom 3D printing</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,600;0,9..40,700;1,9..40,400&family=Instrument+Sans:wght@600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <a class="skip-link" href="#contact">Skip to contact</a>
+
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="logo" href="#">Printstore</a>
+      <p class="tagline">Custom 3D prints · quotes by email</p>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="wrap">
+        <h1>Ideas you can hold</h1>
+        <p class="lead">
+          This site is a simple catalog of what I can help you produce—prototypes, spare parts,
+          props, organizers, and more. There is no shopping cart; you reach out, we talk through
+          the job, and I handle printing manually.
+        </p>
+        <a class="btn btn-primary" href="#contact">Request a print</a>
+      </div>
+    </section>
+
+    <section class="section" id="capabilities">
+      <div class="wrap">
+        <h2>What I can help with</h2>
+        <p class="section-intro">
+          Edit this page anytime to match your real equipment and materials. Everything below is static text for visitors.
+        </p>
+        <ul class="card-grid">
+          <li class="card">
+            <h3>Prototypes &amp; one-offs</h3>
+            <p>Test a design before committing to tooling, or replace a broken plastic part with a fresh print.</p>
+          </li>
+          <li class="card">
+            <h3>Functional parts</h3>
+            <p>Brackets, clips, cable management, small mechanical helpers—designed for use, not just display.</p>
+          </li>
+          <li class="card">
+            <h3>Props &amp; gifts</h3>
+            <p>Cosplay accents, desk toys, custom text plates—great when you have a reference photo or rough sketch.</p>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section section-alt" id="process">
+      <div class="wrap">
+        <h2>How it works</h2>
+        <ol class="steps">
+          <li><strong>Message me</strong> with what you need, size, quantity, and any files or photos.</li>
+          <li><strong>Quote &amp; timeline</strong> I reply with material options, price ballpark, and lead time.</li>
+          <li><strong>Print &amp; handoff</strong> After you approve, I print. Local pickup or shipping—we’ll coordinate.</li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="section" id="contact">
+      <div class="wrap contact-layout">
+        <div>
+          <h2>Contact</h2>
+          <p class="section-intro">
+            No store checkout—this form opens your email app with your message filled in. I respond personally.
+          </p>
+          <p class="fine-print">
+            Update your address in <code>main.js</code> (<code>CONTACT_EMAIL</code>) before sharing the site widely.
+          </p>
+        </div>
+        <form class="contact-form" id="contact-form" novalidate>
+          <label for="name">Your name</label>
+          <input id="name" name="name" type="text" autocomplete="name" required placeholder="Ada Lovelace">
+
+          <label for="email">Your email</label>
+          <input id="email" name="email" type="email" autocomplete="email" required placeholder="you@example.com">
+
+          <label for="subject">Subject</label>
+          <input id="subject" name="subject" type="text" required placeholder="Replacement latch for…">
+
+          <label for="details">Project details</label>
+          <textarea id="details" name="details" rows="6" required placeholder="Size, quantity, material ideas, deadline, link to model or photos…"></textarea>
+
+          <button class="btn btn-primary" type="submit">Open email draft</button>
+          <p class="form-hint" id="form-hint" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-inner">
+      <p>Hosted on GitHub Pages · static storefront, human fulfillment.</p>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>
