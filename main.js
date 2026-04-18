@@ -50,3 +50,15 @@ const CONTACT_EMAIL = "sales@printeddesert.com";
     hint.textContent = "If your mail app did not open, check pop-up or default mail settings.";
   });
 })();
+
+/** Gallery cards: toggle alternate photo (static HTML). */
+(function () {
+  document.querySelectorAll(".storefront-swap").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      const card = btn.closest(".storefront-card");
+      if (!card) return;
+      const on = card.classList.toggle("storefront-card--show-alt");
+      btn.setAttribute("aria-pressed", on ? "true" : "false");
+    });
+  });
+})();

@@ -370,34 +370,12 @@ body {
   text-align: center;
 }
 
-.hero-gallery-link {
-  margin: 1.25rem 0 0;
-  font-size: 0.98rem;
+.storefront-collection {
+  margin-top: 2rem;
 }
 
-.hero-gallery-link a {
-  color: var(--accent);
-  font-weight: 600;
-  text-underline-offset: 3px;
-}
-
-.hero-gallery-link a:hover {
-  color: var(--accent-hover);
-}
-
-.storefront-root {
-  display: flex;
-  flex-direction: column;
-  gap: 2.5rem;
-}
-
-.storefront-empty {
-  margin: 0;
-  padding: 1rem 1.25rem;
-  border-radius: var(--radius);
-  border: 1px dashed var(--border);
-  color: var(--muted);
-  font-size: 0.95rem;
+.storefront-collection:first-of-type {
+  margin-top: 0;
 }
 
 .storefront-collection-title {
