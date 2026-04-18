@@ -502,6 +502,10 @@ body {
   min-height: 3.5rem;
 }
 
+.order-strip-actions {
+  border-color: var(--border) !important;
+}
+
 .order-thumb-wrap {
   position: relative;
   display: inline-block;

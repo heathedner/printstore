@@ -54,6 +54,7 @@
   function renderOrderStrip() {
     const thumbs = document.getElementById("order-thumbs");
     const sendBtn = document.getElementById("send-order-btn");
+    const clearBtn = document.getElementById("clear-order-btn");
     if (!thumbs || !sendBtn) {
       syncAddButtonStates();
       return;
@@ -82,8 +83,13 @@
       thumbs.appendChild(wrap);
     });
 
-    sendBtn.disabled = cart.length === 0;
-    sendBtn.setAttribute("aria-disabled", cart.length === 0 ? "true" : "false");
+    const empty = cart.length === 0;
+    sendBtn.disabled = empty;
+    sendBtn.setAttribute("aria-disabled", empty ? "true" : "false");
+    if (clearBtn) {
+      clearBtn.disabled = empty;
+      clearBtn.setAttribute("aria-disabled", empty ? "true" : "false");
+    }
 
     syncAddButtonStates();
   }
@@ -162,6 +168,15 @@
       if (!cart.length) return;
       saveCart(cart);
       window.location.href = "order.html";
+    });
+  }
+
+  var clearBtnInit = document.getElementById("clear-order-btn");
+  if (clearBtnInit) {
+    clearBtnInit.addEventListener("click", function () {
+      cart = [];
+      saveCart(cart);
+      renderOrderStrip();
     });
   }
 
