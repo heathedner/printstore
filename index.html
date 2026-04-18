@@ -12,7 +12,8 @@
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,600;0,9..40,700;1,9..40,400&family=Instrument+Sans:wght@600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-  <a class="skip-link" href="#contact">Skip to contact</a>
+  <a class="skip-link" href="#collections">Skip to collections</a>
+  <a class="skip-link skip-link--secondary" href="#contact">Skip to contact</a>
 
   <header class="site-header">
     <div class="wrap header-inner">
@@ -24,174 +25,175 @@
           decoding="async">
         <span class="logo-wordmark">Printed Desert</span>
       </a>
-      <p class="tagline">Photo collections · say hello below</p>
+      <div class="header-search">
+        <label class="visually-hidden" for="product-search">Search products in all collections</label>
+        <input
+          type="search"
+          id="product-search"
+          class="header-search-input"
+          placeholder="Search products…"
+          autocomplete="off"
+          enterkeyhint="search"
+          aria-controls="collections">
+      </div>
     </div>
   </header>
 
   <main>
-    <section class="hero">
-      <div class="wrap">
-        <h1>Things I print</h1>
-        <p class="lead">
-          Here are a few collections of pieces I have made—just photos on a simple static site.
-          If something catches your eye, use the form at the bottom to send me an email.
-        </p>
-        <a class="btn btn-primary" href="#contact">Contact me</a>
-      </div>
-    </section>
-
     <section class="section section-alt" id="collections" aria-labelledby="collections-heading">
       <div class="wrap">
-        <h2 id="collections-heading">Collections</h2>
+        <h1 class="page-title" id="collections-heading">Collections</h1>
         <p class="section-intro">
-          Hover a photo on a larger screen to peek at another angle, or use the swap control on the card.
+          Open or close a group with its heading. Use the search field above to filter—collections with no matches tuck closed until you clear the search.
         </p>
 
-        <section class="storefront-collection" aria-labelledby="mini-dragons-heading">
-          <h3 class="storefront-collection-title" id="mini-dragons-heading">Mini Dragons</h3>
+        <details class="collection-disclosure" open>
+          <summary class="collection-disclosure-summary">
+            <span class="collection-disclosure-title">Mini Dragons</span>
+          </summary>
           <div class="storefront-grid">
-            <article class="storefront-card" data-has-alt="true">
+            <article class="storefront-card" data-has-alt="true" data-search-text="mini dragons bone">
               <div class="storefront-media">
                 <img class="storefront-img storefront-main" src="assets/img/storefront/mini_dragons/bone.jpg" alt="Bone — Mini Dragons" width="800" height="800" loading="lazy" decoding="async">
                 <img class="storefront-img storefront-alt" src="assets/img/storefront/mini_dragons/bone%20alt.jpg" alt="Bone — alternate angle — Mini Dragons" width="800" height="800" loading="lazy" decoding="async">
               </div>
               <div class="storefront-card-footer">
-                <h4 class="storefront-caption">Bone</h4>
+                <p class="storefront-caption">Bone</p>
                 <button type="button" class="storefront-swap" aria-pressed="false" aria-label="Show alternate photo of Bone"><span aria-hidden="true">⟲</span></button>
               </div>
             </article>
 
-            <article class="storefront-card" data-has-alt="true">
+            <article class="storefront-card" data-has-alt="true" data-search-text="mini dragons cookie">
               <div class="storefront-media">
                 <img class="storefront-img storefront-main" src="assets/img/storefront/mini_dragons/cookie.png" alt="Cookie — Mini Dragons" width="800" height="800" loading="lazy" decoding="async">
                 <img class="storefront-img storefront-alt" src="assets/img/storefront/mini_dragons/cookie%20alt.jpg" alt="Cookie — alternate angle — Mini Dragons" width="800" height="800" loading="lazy" decoding="async">
               </div>
               <div class="storefront-card-footer">
-                <h4 class="storefront-caption">Cookie</h4>
+                <p class="storefront-caption">Cookie</p>
                 <button type="button" class="storefront-swap" aria-pressed="false" aria-label="Show alternate photo of Cookie"><span aria-hidden="true">⟲</span></button>
               </div>
             </article>
 
-            <article class="storefront-card" data-has-alt="false">
+            <article class="storefront-card" data-has-alt="false" data-search-text="mini dragons easter">
               <div class="storefront-media">
                 <img class="storefront-img storefront-main" src="assets/img/storefront/mini_dragons/easter.PNG" alt="Easter — Mini Dragons" width="800" height="800" loading="lazy" decoding="async">
               </div>
               <div class="storefront-card-footer">
-                <h4 class="storefront-caption">Easter</h4>
+                <p class="storefront-caption">Easter</p>
               </div>
             </article>
 
-            <article class="storefront-card" data-has-alt="true">
+            <article class="storefront-card" data-has-alt="true" data-search-text="mini dragons fire">
               <div class="storefront-media">
                 <img class="storefront-img storefront-main" src="assets/img/storefront/mini_dragons/fire.jpg" alt="Fire — Mini Dragons" width="800" height="800" loading="lazy" decoding="async">
                 <img class="storefront-img storefront-alt" src="assets/img/storefront/mini_dragons/fire_alt.jpg" alt="Fire — alternate angle — Mini Dragons" width="800" height="800" loading="lazy" decoding="async">
               </div>
               <div class="storefront-card-footer">
-                <h4 class="storefront-caption">Fire</h4>
+                <p class="storefront-caption">Fire</p>
                 <button type="button" class="storefront-swap" aria-pressed="false" aria-label="Show alternate photo of Fire"><span aria-hidden="true">⟲</span></button>
               </div>
             </article>
 
-            <article class="storefront-card" data-has-alt="true">
+            <article class="storefront-card" data-has-alt="true" data-search-text="mini dragons ice">
               <div class="storefront-media">
                 <img class="storefront-img storefront-main" src="assets/img/storefront/mini_dragons/ice.jpg" alt="Ice — Mini Dragons" width="800" height="800" loading="lazy" decoding="async">
                 <img class="storefront-img storefront-alt" src="assets/img/storefront/mini_dragons/ice_alt.jpg" alt="Ice — alternate angle — Mini Dragons" width="800" height="800" loading="lazy" decoding="async">
               </div>
               <div class="storefront-card-footer">
-                <h4 class="storefront-caption">Ice</h4>
+                <p class="storefront-caption">Ice</p>
                 <button type="button" class="storefront-swap" aria-pressed="false" aria-label="Show alternate photo of Ice"><span aria-hidden="true">⟲</span></button>
               </div>
             </article>
 
-            <article class="storefront-card" data-has-alt="true">
+            <article class="storefront-card" data-has-alt="true" data-search-text="mini dragons love">
               <div class="storefront-media">
                 <img class="storefront-img storefront-main" src="assets/img/storefront/mini_dragons/love.jpg" alt="Love — Mini Dragons" width="800" height="800" loading="lazy" decoding="async">
                 <img class="storefront-img storefront-alt" src="assets/img/storefront/mini_dragons/love_alt.jpg" alt="Love — alternate angle — Mini Dragons" width="800" height="800" loading="lazy" decoding="async">
               </div>
               <div class="storefront-card-footer">
-                <h4 class="storefront-caption">Love</h4>
+                <p class="storefront-caption">Love</p>
                 <button type="button" class="storefront-swap" aria-pressed="false" aria-label="Show alternate photo of Love"><span aria-hidden="true">⟲</span></button>
               </div>
             </article>
 
-            <article class="storefront-card" data-has-alt="true">
+            <article class="storefront-card" data-has-alt="true" data-search-text="mini dragons magma">
               <div class="storefront-media">
                 <img class="storefront-img storefront-main" src="assets/img/storefront/mini_dragons/magma.jpg" alt="Magma — Mini Dragons" width="800" height="800" loading="lazy" decoding="async">
                 <img class="storefront-img storefront-alt" src="assets/img/storefront/mini_dragons/magma_alt.jpg" alt="Magma — alternate angle — Mini Dragons" width="800" height="800" loading="lazy" decoding="async">
               </div>
               <div class="storefront-card-footer">
-                <h4 class="storefront-caption">Magma</h4>
+                <p class="storefront-caption">Magma</p>
                 <button type="button" class="storefront-swap" aria-pressed="false" aria-label="Show alternate photo of Magma"><span aria-hidden="true">⟲</span></button>
               </div>
             </article>
 
-            <article class="storefront-card" data-has-alt="true">
+            <article class="storefront-card" data-has-alt="true" data-search-text="mini dragons moon">
               <div class="storefront-media">
                 <img class="storefront-img storefront-main" src="assets/img/storefront/mini_dragons/moon.PNG" alt="Moon — Mini Dragons" width="800" height="800" loading="lazy" decoding="async">
                 <img class="storefront-img storefront-alt" src="assets/img/storefront/mini_dragons/moon%20alt.jpg" alt="Moon — alternate angle — Mini Dragons" width="800" height="800" loading="lazy" decoding="async">
               </div>
               <div class="storefront-card-footer">
-                <h4 class="storefront-caption">Moon</h4>
+                <p class="storefront-caption">Moon</p>
                 <button type="button" class="storefront-swap" aria-pressed="false" aria-label="Show alternate photo of Moon"><span aria-hidden="true">⟲</span></button>
               </div>
             </article>
 
-            <article class="storefront-card" data-has-alt="true">
+            <article class="storefront-card" data-has-alt="true" data-search-text="mini dragons poison">
               <div class="storefront-media">
                 <img class="storefront-img storefront-main" src="assets/img/storefront/mini_dragons/poison.PNG" alt="Poison — Mini Dragons" width="800" height="800" loading="lazy" decoding="async">
                 <img class="storefront-img storefront-alt" src="assets/img/storefront/mini_dragons/poison_alt.jpg" alt="Poison — alternate angle — Mini Dragons" width="800" height="800" loading="lazy" decoding="async">
               </div>
               <div class="storefront-card-footer">
-                <h4 class="storefront-caption">Poison</h4>
+                <p class="storefront-caption">Poison</p>
                 <button type="button" class="storefront-swap" aria-pressed="false" aria-label="Show alternate photo of Poison"><span aria-hidden="true">⟲</span></button>
               </div>
             </article>
 
-            <article class="storefront-card" data-has-alt="true">
+            <article class="storefront-card" data-has-alt="true" data-search-text="mini dragons sea">
               <div class="storefront-media">
                 <img class="storefront-img storefront-main" src="assets/img/storefront/mini_dragons/sea.jpg" alt="Sea — Mini Dragons" width="800" height="800" loading="lazy" decoding="async">
                 <img class="storefront-img storefront-alt" src="assets/img/storefront/mini_dragons/sea%20alt.jpg" alt="Sea — alternate angle — Mini Dragons" width="800" height="800" loading="lazy" decoding="async">
               </div>
               <div class="storefront-card-footer">
-                <h4 class="storefront-caption">Sea</h4>
+                <p class="storefront-caption">Sea</p>
                 <button type="button" class="storefront-swap" aria-pressed="false" aria-label="Show alternate photo of Sea"><span aria-hidden="true">⟲</span></button>
               </div>
             </article>
 
-            <article class="storefront-card" data-has-alt="true">
+            <article class="storefront-card" data-has-alt="true" data-search-text="mini dragons sun">
               <div class="storefront-media">
                 <img class="storefront-img storefront-main" src="assets/img/storefront/mini_dragons/sun.png" alt="Sun — Mini Dragons" width="800" height="800" loading="lazy" decoding="async">
                 <img class="storefront-img storefront-alt" src="assets/img/storefront/mini_dragons/sun_alt.jpg" alt="Sun — alternate angle — Mini Dragons" width="800" height="800" loading="lazy" decoding="async">
               </div>
               <div class="storefront-card-footer">
-                <h4 class="storefront-caption">Sun</h4>
+                <p class="storefront-caption">Sun</p>
                 <button type="button" class="storefront-swap" aria-pressed="false" aria-label="Show alternate photo of Sun"><span aria-hidden="true">⟲</span></button>
               </div>
             </article>
 
-            <article class="storefront-card" data-has-alt="true">
+            <article class="storefront-card" data-has-alt="true" data-search-text="mini dragons thunder">
               <div class="storefront-media">
                 <img class="storefront-img storefront-main" src="assets/img/storefront/mini_dragons/thunder.jpg" alt="Thunder — Mini Dragons" width="800" height="800" loading="lazy" decoding="async">
                 <img class="storefront-img storefront-alt" src="assets/img/storefront/mini_dragons/thunder_alt.jpg" alt="Thunder — alternate angle — Mini Dragons" width="800" height="800" loading="lazy" decoding="async">
               </div>
               <div class="storefront-card-footer">
-                <h4 class="storefront-caption">Thunder</h4>
+                <p class="storefront-caption">Thunder</p>
                 <button type="button" class="storefront-swap" aria-pressed="false" aria-label="Show alternate photo of Thunder"><span aria-hidden="true">⟲</span></button>
               </div>
             </article>
 
-            <article class="storefront-card" data-has-alt="true">
+            <article class="storefront-card" data-has-alt="true" data-search-text="mini dragons wind">
               <div class="storefront-media">
                 <img class="storefront-img storefront-main" src="assets/img/storefront/mini_dragons/Wind.png" alt="Wind — Mini Dragons" width="800" height="800" loading="lazy" decoding="async">
                 <img class="storefront-img storefront-alt" src="assets/img/storefront/mini_dragons/wind_alt.png" alt="Wind — alternate angle — Mini Dragons" width="800" height="800" loading="lazy" decoding="async">
               </div>
               <div class="storefront-card-footer">
-                <h4 class="storefront-caption">Wind</h4>
+                <p class="storefront-caption">Wind</p>
                 <button type="button" class="storefront-swap" aria-pressed="false" aria-label="Show alternate photo of Wind"><span aria-hidden="true">⟲</span></button>
               </div>
             </article>
           </div>
-        </section>
+        </details>
       </div>
     </section>
 

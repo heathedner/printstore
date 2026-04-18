@@ -62,3 +62,75 @@ const CONTACT_EMAIL = "sales@printeddesert.com";
     });
   });
 })();
+
+/** Search products across collections; collapse <details> with no visible matches. */
+(function () {
+  const search = document.getElementById("product-search");
+  const collectionsSection = document.getElementById("collections");
+  if (!search || !collectionsSection) return;
+
+  function normalize(s) {
+    return String(s || "")
+      .toLowerCase()
+      .trim()
+      .replace(/\s+/g, " ");
+  }
+
+  function tokens(q) {
+    return normalize(q)
+      .split(/\s+/)
+      .map(function (t) {
+        return t.replace(/[^a-z0-9_-]+/gi, "");
+      })
+      .filter(Boolean);
+  }
+
+  function cardMatches(card, q) {
+    const parts = tokens(q);
+    if (parts.length === 0) return true;
+    const hay = normalize(card.getAttribute("data-search-text") || "");
+    return parts.every(function (p) {
+      return hay.includes(p);
+    });
+  }
+
+  function allCards() {
+    return Array.prototype.slice.call(collectionsSection.querySelectorAll(".storefront-card"));
+  }
+
+  function allDisclosures() {
+    return Array.prototype.slice.call(collectionsSection.querySelectorAll("details.collection-disclosure"));
+  }
+
+  function applySearch() {
+    const raw = search.value;
+    const parts = tokens(raw);
+
+    if (parts.length === 0) {
+      allCards().forEach(function (c) {
+        c.removeAttribute("hidden");
+      });
+      allDisclosures().forEach(function (d) {
+        d.open = true;
+      });
+      return;
+    }
+
+    allCards().forEach(function (card) {
+      const ok = cardMatches(card, raw);
+      if (ok) card.removeAttribute("hidden");
+      else card.setAttribute("hidden", "");
+    });
+
+    allDisclosures().forEach(function (d) {
+      var visible = false;
+      Array.prototype.forEach.call(d.querySelectorAll(".storefront-card"), function (c) {
+        if (!c.hasAttribute("hidden")) visible = true;
+      });
+      d.open = visible;
+    });
+  }
+
+  search.addEventListener("input", applySearch);
+  search.addEventListener("search", applySearch);
+})();

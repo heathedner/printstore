@@ -79,6 +79,10 @@ body {
   border-radius: 8px;
 }
 
+.skip-link--secondary:focus {
+  top: calc(var(--gutter) + 2.75rem);
+}
+
 .wrap {
   width: min(1100px, 100% - 2 * var(--gutter));
   margin-inline: auto;
@@ -109,6 +113,19 @@ body {
   text-decoration: none;
   color: var(--ink);
   min-height: 48px;
+  flex-shrink: 0;
+}
+
+@media (max-width: 560px) {
+  .header-inner {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .header-search {
+    max-width: none;
+    flex: none;
+  }
 }
 
 .logo-lockup:hover .logo-wordmark {
@@ -137,38 +154,52 @@ body {
   transition: color 0.15s ease;
 }
 
-.tagline {
-  margin: 0;
-  font-size: 0.9rem;
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.header-search {
+  flex: 1 1 12rem;
+  max-width: min(22rem, 100%);
+  min-width: 0;
+}
+
+.header-search-input {
+  width: 100%;
+  font: inherit;
+  font-size: 0.95rem;
+  padding: 0.55rem 0.75rem;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--card);
+  color: var(--ink);
+  min-height: 44px;
+}
+
+.header-search-input::placeholder {
   color: var(--muted);
 }
 
-.hero {
-  padding: clamp(2.5rem, 6vw, 4.5rem) 0 clamp(2rem, 5vw, 3rem);
-  background: linear-gradient(
-    165deg,
-    color-mix(in srgb, var(--cap) 22%, var(--bg)) 0%,
-    var(--bg) 38%,
-    color-mix(in srgb, var(--sand) 35%, var(--bg)) 100%
-  );
+.header-search-input:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--focus) 45%, transparent);
+  outline-offset: 2px;
+  border-color: var(--focus);
 }
 
-.hero h1 {
+.page-title {
   font-family: "Instrument Sans", sans-serif;
+  font-size: clamp(1.5rem, 3vw, 1.85rem);
+  margin: 0 0 0.75rem;
+  color: color-mix(in srgb, var(--accent) 28%, var(--ink));
   font-weight: 700;
-  font-size: clamp(2rem, 5vw, 2.75rem);
-  line-height: 1.15;
-  letter-spacing: -0.03em;
-  margin: 0 0 1rem;
-  max-width: 16ch;
-  color: color-mix(in srgb, var(--accent) 32%, var(--ink));
-}
-
-.lead {
-  margin: 0 0 1.75rem;
-  max-width: var(--max);
-  color: var(--muted);
-  font-size: 1.08rem;
 }
 
 .btn {
@@ -370,19 +401,75 @@ body {
   text-align: center;
 }
 
-.storefront-collection {
-  margin-top: 2rem;
+.collection-disclosure {
+  margin-top: 1.5rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--card);
+  box-shadow: var(--shadow);
+  overflow: clip;
 }
 
-.storefront-collection:first-of-type {
+.collection-disclosure:first-of-type {
   margin-top: 0;
 }
 
-.storefront-collection-title {
+.collection-disclosure-summary {
+  list-style: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.85rem 1rem;
   font-family: "Instrument Sans", sans-serif;
-  font-size: 1.35rem;
-  margin: 0 0 1rem;
+  font-weight: 700;
+  font-size: 1.2rem;
   color: color-mix(in srgb, var(--accent) 28%, var(--ink));
+  user-select: none;
+}
+
+.collection-disclosure-summary::-webkit-details-marker {
+  display: none;
+}
+
+.collection-disclosure-summary::after {
+  content: "";
+  width: 0.55rem;
+  height: 0.55rem;
+  border-right: 2px solid var(--muted);
+  border-bottom: 2px solid var(--muted);
+  transform: rotate(45deg);
+  transition: transform 0.2s ease;
+  flex-shrink: 0;
+  margin-left: auto;
+}
+
+.collection-disclosure[open] > .collection-disclosure-summary::after {
+  transform: rotate(-135deg);
+  margin-top: 0.2rem;
+}
+
+.collection-disclosure-summary:hover {
+  color: var(--accent);
+}
+
+.collection-disclosure-summary:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--focus) 45%, transparent);
+  outline-offset: -3px;
+}
+
+.collection-disclosure-title {
+  flex: 1;
+  min-width: 0;
+}
+
+.collection-disclosure .storefront-grid {
+  padding: 0 1rem 1.25rem;
+}
+
+.storefront-card[hidden] {
+  display: none !important;
 }
 
 .storefront-grid {
