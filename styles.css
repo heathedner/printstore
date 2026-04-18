@@ -1,30 +1,40 @@
+/* Palette sampled from layered-rock logo: peach cap, red rock, ochre, sand, sienna */
 :root {
-  --bg: #f6f4f0;
-  --bg-alt: #ebe6de;
-  --ink: #1a1714;
-  --muted: #5c554c;
-  --accent: #c45c26;
-  --accent-hover: #a34d20;
-  --card: #fffdf9;
-  --border: #d8d0c6;
-  --focus: #2b6cb0;
+  --cap: #e8b085;
+  --red-rock: #c55a3b;
+  --ochre: #d99e48;
+  --sand: #d6b995;
+  --sienna: #b5754e;
+
+  --bg: #f6ebe3;
+  --bg-alt: #ead9c8;
+  --ink: #2a1f18;
+  --muted: #6b5346;
+  --accent: var(--red-rock);
+  --accent-hover: #a8482f;
+  --accent-secondary: var(--ochre);
+  --card: #fff9f3;
+  --border: #dcc9b8;
+  --focus: #9a4d32;
   --radius: 12px;
-  --shadow: 0 8px 24px rgba(26, 23, 20, 0.08);
+  --shadow: 0 10px 28px rgba(42, 31, 24, 0.09);
   --max: 72ch;
   --gutter: clamp(1rem, 4vw, 2rem);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg: #141210;
-    --bg-alt: #1c1916;
-    --ink: #f2ebe3;
-    --muted: #a89f94;
-    --accent: #e07a45;
-    --accent-hover: #f0905c;
-    --card: #1f1b17;
-    --border: #3a342c;
-    --shadow: 0 8px 28px rgba(0, 0, 0, 0.35);
+    --bg: #1a1411;
+    --bg-alt: #241c17;
+    --ink: #f2e6d9;
+    --muted: #c4a995;
+    --accent: #e07855;
+    --accent-hover: #f09062;
+    --accent-secondary: #e8b565;
+    --card: #221a15;
+    --border: #3d3028;
+    --focus: #f0a080;
+    --shadow: 0 12px 32px rgba(0, 0, 0, 0.4);
   }
 }
 
@@ -86,23 +96,45 @@ body {
 .header-inner {
   display: flex;
   flex-wrap: wrap;
-  align-items: baseline;
+  align-items: center;
   justify-content: space-between;
-  gap: 0.5rem 1.5rem;
-  padding: 1rem 0;
+  gap: 0.75rem 1.5rem;
+  padding: 0.85rem 0;
 }
 
-.logo {
+.logo-lockup {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  text-decoration: none;
+  color: var(--ink);
+  min-height: 48px;
+}
+
+.logo-lockup:hover .logo-wordmark {
+  color: var(--accent);
+}
+
+.logo-img {
+  height: 2.5rem;
+  width: auto;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+@media (min-width: 480px) {
+  .logo-img {
+    height: 2.85rem;
+  }
+}
+
+.logo-wordmark {
   font-family: "Instrument Sans", "DM Sans", sans-serif;
   font-weight: 700;
-  font-size: 1.25rem;
+  font-size: clamp(1.1rem, 2.5vw, 1.35rem);
   letter-spacing: -0.02em;
-  color: var(--ink);
-  text-decoration: none;
-}
-
-.logo:hover {
-  color: var(--accent);
+  line-height: 1.1;
+  transition: color 0.15s ease;
 }
 
 .tagline {
@@ -113,6 +145,12 @@ body {
 
 .hero {
   padding: clamp(2.5rem, 6vw, 4.5rem) 0 clamp(2rem, 5vw, 3rem);
+  background: linear-gradient(
+    165deg,
+    color-mix(in srgb, var(--cap) 22%, var(--bg)) 0%,
+    var(--bg) 38%,
+    color-mix(in srgb, var(--sand) 35%, var(--bg)) 100%
+  );
 }
 
 .hero h1 {
@@ -122,7 +160,8 @@ body {
   line-height: 1.15;
   letter-spacing: -0.03em;
   margin: 0 0 1rem;
-  max-width: 14ch;
+  max-width: 16ch;
+  color: color-mix(in srgb, var(--accent) 32%, var(--ink));
 }
 
 .lead {
@@ -148,12 +187,13 @@ body {
 }
 
 .btn-primary {
-  background: var(--accent);
+  background: linear-gradient(165deg, var(--accent) 0%, color-mix(in srgb, var(--sienna) 55%, var(--accent)) 100%);
   color: #fff;
+  box-shadow: 0 2px 0 color-mix(in srgb, var(--ink) 18%, transparent);
 }
 
 .btn-primary:hover {
-  background: var(--accent-hover);
+  background: linear-gradient(165deg, var(--accent-hover) 0%, var(--accent) 100%);
 }
 
 .btn-primary:focus-visible {
@@ -173,6 +213,7 @@ body {
   font-family: "Instrument Sans", sans-serif;
   font-size: clamp(1.5rem, 3vw, 1.85rem);
   margin: 0 0 0.75rem;
+  color: color-mix(in srgb, var(--accent) 28%, var(--ink));
 }
 
 .section-intro {

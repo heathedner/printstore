@@ -33,7 +33,7 @@ const CONTACT_EMAIL = "sales@printeddesert.com";
       `Name: ${name}\r\n` +
       `Reply-to: ${replyTo}\r\n\r\n` +
       `${details}\r\n\r\n` +
-      `(Sent from your print storefront contact form.)`;
+      `(Sent from the Printed Desert contact form.)`;
 
     const maxLen = 1800;
     const safeBody = body.length > maxLen ? body.slice(0, maxLen) + "\r\n…[truncated]" : body;
