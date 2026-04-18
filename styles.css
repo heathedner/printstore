@@ -83,6 +83,10 @@ body {
   top: calc(var(--gutter) + 2.75rem);
 }
 
+.skip-link--tertiary:focus {
+  top: calc(var(--gutter) + 5.25rem);
+}
+
 .wrap {
   width: min(1100px, 100% - 2 * var(--gutter));
   margin-inline: auto;
@@ -173,25 +177,7 @@ body {
 }
 
 .header-search-input {
-  width: 100%;
-  font: inherit;
-  font-size: 0.95rem;
-  padding: 0.55rem 0.75rem;
-  border-radius: 999px;
-  border: 1px solid var(--border);
-  background: var(--card);
-  color: var(--ink);
   min-height: 44px;
-}
-
-.header-search-input::placeholder {
-  color: var(--muted);
-}
-
-.header-search-input:focus-visible {
-  outline: 3px solid color-mix(in srgb, var(--focus) 45%, transparent);
-  outline-offset: 2px;
-  border-color: var(--focus);
 }
 
 .page-title {
@@ -200,36 +186,6 @@ body {
   margin: 0 0 0.75rem;
   color: color-mix(in srgb, var(--accent) 28%, var(--ink));
   font-weight: 700;
-}
-
-.btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 48px;
-  padding: 0.65rem 1.35rem;
-  font: inherit;
-  font-weight: 600;
-  border-radius: 999px;
-  border: 2px solid transparent;
-  cursor: pointer;
-  text-decoration: none;
-  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
-}
-
-.btn-primary {
-  background: linear-gradient(165deg, var(--accent) 0%, color-mix(in srgb, var(--sienna) 55%, var(--accent)) 100%);
-  color: #fff;
-  box-shadow: 0 2px 0 color-mix(in srgb, var(--ink) 18%, transparent);
-}
-
-.btn-primary:hover {
-  background: linear-gradient(165deg, var(--accent-hover) 0%, var(--accent) 100%);
-}
-
-.btn-primary:focus-visible {
-  outline: 3px solid var(--focus);
-  outline-offset: 3px;
 }
 
 .section {
@@ -362,9 +318,26 @@ body {
   border-color: var(--focus);
 }
 
-.contact-form .btn-primary {
+.contact-form .contact-submit {
   margin-top: 0.5rem;
   width: 100%;
+  background: linear-gradient(165deg, var(--accent) 0%, color-mix(in srgb, var(--sienna) 55%, var(--accent)) 100%);
+  border: none;
+  box-shadow: 0 2px 0 color-mix(in srgb, var(--ink) 18%, transparent);
+}
+
+.contact-form .contact-submit:hover {
+  background: linear-gradient(165deg, var(--accent-hover) 0%, var(--accent) 100%);
+}
+
+#send-order-btn.btn-primary:not(:disabled) {
+  background: linear-gradient(165deg, var(--accent) 0%, color-mix(in srgb, var(--sienna) 55%, var(--accent)) 100%);
+  border-color: transparent;
+  box-shadow: 0 2px 0 color-mix(in srgb, var(--ink) 18%, transparent);
+}
+
+#send-order-btn.btn-primary:not(:disabled):hover {
+  background: linear-gradient(165deg, var(--accent-hover) 0%, var(--accent) 100%);
 }
 
 .form-hint {
@@ -417,10 +390,10 @@ body {
 .collection-disclosure-summary {
   list-style: none;
   cursor: pointer;
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr auto auto;
   align-items: center;
-  justify-content: space-between;
-  gap: 0.75rem;
+  gap: 0.5rem 0.75rem;
   padding: 0.85rem 1rem;
   font-family: "Instrument Sans", sans-serif;
   font-weight: 700;
@@ -433,23 +406,6 @@ body {
   display: none;
 }
 
-.collection-disclosure-summary::after {
-  content: "";
-  width: 0.55rem;
-  height: 0.55rem;
-  border-right: 2px solid var(--muted);
-  border-bottom: 2px solid var(--muted);
-  transform: rotate(45deg);
-  transition: transform 0.2s ease;
-  flex-shrink: 0;
-  margin-left: auto;
-}
-
-.collection-disclosure[open] > .collection-disclosure-summary::after {
-  transform: rotate(-135deg);
-  margin-top: 0.2rem;
-}
-
 .collection-disclosure-summary:hover {
   color: var(--accent);
 }
@@ -460,16 +416,79 @@ body {
 }
 
 .collection-disclosure-title {
-  flex: 1;
   min-width: 0;
+}
+
+.collection-add-all {
+  position: relative;
+  z-index: 2;
+  font-weight: 600;
+  font-size: 0.8rem;
+}
+
+.collection-chev {
+  width: 0.55rem;
+  height: 0.55rem;
+  border-right: 2px solid var(--muted);
+  border-bottom: 2px solid var(--muted);
+  transform: rotate(45deg);
+  transition: transform 0.2s ease;
+  justify-self: end;
+}
+
+.collection-disclosure[open] > .collection-disclosure-summary .collection-chev {
+  transform: rotate(-135deg);
+  margin-top: 0.15rem;
 }
 
 .collection-disclosure .storefront-grid {
   padding: 0 1rem 1.25rem;
 }
 
-.storefront-card[hidden] {
+.storefront-card.pd-search-hidden {
   display: none !important;
+}
+
+.order-strip .text-muted {
+  color: var(--muted) !important;
+}
+
+.order-thumbs {
+  min-height: 3.5rem;
+}
+
+.order-thumb-wrap {
+  position: relative;
+  display: inline-block;
+}
+
+.order-thumb {
+  width: 56px;
+  height: 56px;
+  object-fit: cover;
+  border-radius: 10px;
+  border: 2px solid color-mix(in srgb, var(--ink) 12%, var(--border));
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.35),
+    0 3px 8px rgba(42, 31, 24, 0.12);
+  background: var(--card);
+}
+
+.order-thumb-qty {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  min-width: 1.35rem;
+  padding: 0.1rem 0.35rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+  line-height: 1.2;
+  text-align: center;
+  color: #fff;
+  background: var(--accent);
+  border-radius: 999px;
+  border: 2px solid var(--card);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
 }
 
 .storefront-grid {
@@ -507,14 +526,6 @@ body {
   opacity: 0;
 }
 
-.storefront-card--show-alt .storefront-main {
-  opacity: 0;
-}
-
-.storefront-card--show-alt .storefront-alt {
-  opacity: 1;
-}
-
 @media (hover: hover) and (pointer: fine) {
   .storefront-card[data-has-alt="true"]:hover .storefront-main {
     opacity: 0;
@@ -546,28 +557,17 @@ body {
   font-weight: 600;
 }
 
-.storefront-swap {
+.storefront-add {
   flex-shrink: 0;
-  width: 44px;
-  height: 44px;
-  display: inline-flex;
+  width: 46px;
+  height: 46px;
+  padding: 0 !important;
+  display: inline-flex !important;
   align-items: center;
   justify-content: center;
-  border-radius: 10px;
-  border: 1px solid var(--border);
-  background: var(--bg);
-  color: var(--ink);
-  font-size: 1.15rem;
-  cursor: pointer;
+}
+
+.storefront-cart-icon {
+  font-size: 1.35rem;
   line-height: 1;
-}
-
-.storefront-swap:hover {
-  border-color: var(--accent);
-  color: var(--accent);
-}
-
-.storefront-swap:focus-visible {
-  outline: 3px solid color-mix(in srgb, var(--focus) 45%, transparent);
-  outline-offset: 2px;
 }

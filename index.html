@@ -6,18 +6,21 @@
   <meta name="description" content="Printed Desert — photo collections of things I print. Get in touch by email.">
   <meta name="theme-color" content="#c55a3b">
   <title>Printed Desert · Collections</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" crossorigin="anonymous">
   <link rel="stylesheet" href="styles.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,600;0,9..40,700;1,9..40,400&family=Instrument+Sans:wght@600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-  <a class="skip-link" href="#collections">Skip to collections</a>
-  <a class="skip-link skip-link--secondary" href="#contact">Skip to contact</a>
+  <a class="skip-link" href="#order-strip">Skip to order</a>
+  <a class="skip-link skip-link--secondary" href="#collections">Skip to collections</a>
+  <a class="skip-link skip-link--tertiary" href="#contact">Skip to contact</a>
 
   <header class="site-header">
     <div class="wrap header-inner">
-      <a class="logo-lockup" href="#">
+      <a class="logo-lockup" href="index.html">
         <img
           class="logo-img"
           src="assets/img/layer_rock_logo.png"
@@ -26,11 +29,11 @@
         <span class="logo-wordmark">Printed Desert</span>
       </a>
       <div class="header-search">
-        <label class="visually-hidden" for="product-search">Search products in all collections</label>
+        <label class="visually-hidden" for="product-search">Search</label>
         <input
           type="search"
           id="product-search"
-          class="header-search-input"
+          class="form-control form-control-sm header-search-input rounded-pill"
           placeholder="Search products…"
           autocomplete="off"
           enterkeyhint="search"
@@ -40,156 +43,202 @@
   </header>
 
   <main>
+    <section class="section section-alt order-strip" id="order-strip" aria-labelledby="order-strip-heading">
+      <div class="wrap">
+        <div class="d-flex flex-wrap align-items-start justify-content-between gap-3 mb-3">
+          <div>
+            <h2 class="h4 mb-1" id="order-strip-heading">Create an Order</h2>
+            <p class="small text-muted mb-0">Use the cart on each product. Thumbnails stack here; send when you are ready.</p>
+          </div>
+          <button type="button" class="btn btn-primary" id="send-order-btn" disabled aria-disabled="true">
+            Send order
+          </button>
+        </div>
+        <div id="order-thumbs" class="order-thumbs d-flex flex-wrap gap-2 align-items-center" aria-live="polite"></div>
+      </div>
+    </section>
+
     <section class="section section-alt" id="collections" aria-labelledby="collections-heading">
       <div class="wrap">
         <h1 class="page-title" id="collections-heading">Collections</h1>
-        <p class="section-intro">
-          Open or close a group with its heading. Use the search field above to filter—collections with no matches tuck closed until you clear the search.
-        </p>
 
         <details class="collection-disclosure" open>
           <summary class="collection-disclosure-summary">
             <span class="collection-disclosure-title">Mini Dragons</span>
+            <button
+              type="button"
+              class="btn btn-sm btn-outline-secondary collection-add-all"
+              aria-label="Add all Mini Dragons to order">
+              Add all
+            </button>
+            <span class="collection-chev" aria-hidden="true"></span>
           </summary>
           <div class="storefront-grid">
-            <article class="storefront-card" data-has-alt="true" data-search-text="mini dragons bone">
+            <article class="storefront-card" data-has-alt="true" data-search-text="mini dragons bone" data-product-id="mini_dragons-bone">
               <div class="storefront-media">
                 <img class="storefront-img storefront-main" src="assets/img/storefront/mini_dragons/bone.jpg" alt="Bone — Mini Dragons" width="800" height="800" loading="lazy" decoding="async">
                 <img class="storefront-img storefront-alt" src="assets/img/storefront/mini_dragons/bone%20alt.jpg" alt="Bone — alternate angle — Mini Dragons" width="800" height="800" loading="lazy" decoding="async">
               </div>
               <div class="storefront-card-footer">
                 <p class="storefront-caption">Bone</p>
-                <button type="button" class="storefront-swap" aria-pressed="false" aria-label="Show alternate photo of Bone"><span aria-hidden="true">⟲</span></button>
+                <button type="button" class="btn btn-outline-secondary storefront-add" aria-label="Add Bone to order">
+                  <i class="bi bi-cart-plus storefront-cart-icon" aria-hidden="true"></i>
+                </button>
               </div>
             </article>
 
-            <article class="storefront-card" data-has-alt="true" data-search-text="mini dragons cookie">
+            <article class="storefront-card" data-has-alt="true" data-search-text="mini dragons cookie" data-product-id="mini_dragons-cookie">
               <div class="storefront-media">
                 <img class="storefront-img storefront-main" src="assets/img/storefront/mini_dragons/cookie.png" alt="Cookie — Mini Dragons" width="800" height="800" loading="lazy" decoding="async">
                 <img class="storefront-img storefront-alt" src="assets/img/storefront/mini_dragons/cookie%20alt.jpg" alt="Cookie — alternate angle — Mini Dragons" width="800" height="800" loading="lazy" decoding="async">
               </div>
               <div class="storefront-card-footer">
                 <p class="storefront-caption">Cookie</p>
-                <button type="button" class="storefront-swap" aria-pressed="false" aria-label="Show alternate photo of Cookie"><span aria-hidden="true">⟲</span></button>
+                <button type="button" class="btn btn-outline-secondary storefront-add" aria-label="Add Cookie to order">
+                  <i class="bi bi-cart-plus storefront-cart-icon" aria-hidden="true"></i>
+                </button>
               </div>
             </article>
 
-            <article class="storefront-card" data-has-alt="false" data-search-text="mini dragons easter">
+            <article class="storefront-card" data-has-alt="false" data-search-text="mini dragons easter" data-product-id="mini_dragons-easter">
               <div class="storefront-media">
                 <img class="storefront-img storefront-main" src="assets/img/storefront/mini_dragons/easter.PNG" alt="Easter — Mini Dragons" width="800" height="800" loading="lazy" decoding="async">
               </div>
               <div class="storefront-card-footer">
                 <p class="storefront-caption">Easter</p>
+                <button type="button" class="btn btn-outline-secondary storefront-add" aria-label="Add Easter to order">
+                  <i class="bi bi-cart-plus storefront-cart-icon" aria-hidden="true"></i>
+                </button>
               </div>
             </article>
 
-            <article class="storefront-card" data-has-alt="true" data-search-text="mini dragons fire">
+            <article class="storefront-card" data-has-alt="true" data-search-text="mini dragons fire" data-product-id="mini_dragons-fire">
               <div class="storefront-media">
                 <img class="storefront-img storefront-main" src="assets/img/storefront/mini_dragons/fire.jpg" alt="Fire — Mini Dragons" width="800" height="800" loading="lazy" decoding="async">
                 <img class="storefront-img storefront-alt" src="assets/img/storefront/mini_dragons/fire_alt.jpg" alt="Fire — alternate angle — Mini Dragons" width="800" height="800" loading="lazy" decoding="async">
               </div>
               <div class="storefront-card-footer">
                 <p class="storefront-caption">Fire</p>
-                <button type="button" class="storefront-swap" aria-pressed="false" aria-label="Show alternate photo of Fire"><span aria-hidden="true">⟲</span></button>
+                <button type="button" class="btn btn-outline-secondary storefront-add" aria-label="Add Fire to order">
+                  <i class="bi bi-cart-plus storefront-cart-icon" aria-hidden="true"></i>
+                </button>
               </div>
             </article>
 
-            <article class="storefront-card" data-has-alt="true" data-search-text="mini dragons ice">
+            <article class="storefront-card" data-has-alt="true" data-search-text="mini dragons ice" data-product-id="mini_dragons-ice">
               <div class="storefront-media">
                 <img class="storefront-img storefront-main" src="assets/img/storefront/mini_dragons/ice.jpg" alt="Ice — Mini Dragons" width="800" height="800" loading="lazy" decoding="async">
                 <img class="storefront-img storefront-alt" src="assets/img/storefront/mini_dragons/ice_alt.jpg" alt="Ice — alternate angle — Mini Dragons" width="800" height="800" loading="lazy" decoding="async">
               </div>
               <div class="storefront-card-footer">
                 <p class="storefront-caption">Ice</p>
-                <button type="button" class="storefront-swap" aria-pressed="false" aria-label="Show alternate photo of Ice"><span aria-hidden="true">⟲</span></button>
+                <button type="button" class="btn btn-outline-secondary storefront-add" aria-label="Add Ice to order">
+                  <i class="bi bi-cart-plus storefront-cart-icon" aria-hidden="true"></i>
+                </button>
               </div>
             </article>
 
-            <article class="storefront-card" data-has-alt="true" data-search-text="mini dragons love">
+            <article class="storefront-card" data-has-alt="true" data-search-text="mini dragons love" data-product-id="mini_dragons-love">
               <div class="storefront-media">
                 <img class="storefront-img storefront-main" src="assets/img/storefront/mini_dragons/love.jpg" alt="Love — Mini Dragons" width="800" height="800" loading="lazy" decoding="async">
                 <img class="storefront-img storefront-alt" src="assets/img/storefront/mini_dragons/love_alt.jpg" alt="Love — alternate angle — Mini Dragons" width="800" height="800" loading="lazy" decoding="async">
               </div>
               <div class="storefront-card-footer">
                 <p class="storefront-caption">Love</p>
-                <button type="button" class="storefront-swap" aria-pressed="false" aria-label="Show alternate photo of Love"><span aria-hidden="true">⟲</span></button>
+                <button type="button" class="btn btn-outline-secondary storefront-add" aria-label="Add Love to order">
+                  <i class="bi bi-cart-plus storefront-cart-icon" aria-hidden="true"></i>
+                </button>
               </div>
             </article>
 
-            <article class="storefront-card" data-has-alt="true" data-search-text="mini dragons magma">
+            <article class="storefront-card" data-has-alt="true" data-search-text="mini dragons magma" data-product-id="mini_dragons-magma">
               <div class="storefront-media">
                 <img class="storefront-img storefront-main" src="assets/img/storefront/mini_dragons/magma.jpg" alt="Magma — Mini Dragons" width="800" height="800" loading="lazy" decoding="async">
                 <img class="storefront-img storefront-alt" src="assets/img/storefront/mini_dragons/magma_alt.jpg" alt="Magma — alternate angle — Mini Dragons" width="800" height="800" loading="lazy" decoding="async">
               </div>
               <div class="storefront-card-footer">
                 <p class="storefront-caption">Magma</p>
-                <button type="button" class="storefront-swap" aria-pressed="false" aria-label="Show alternate photo of Magma"><span aria-hidden="true">⟲</span></button>
+                <button type="button" class="btn btn-outline-secondary storefront-add" aria-label="Add Magma to order">
+                  <i class="bi bi-cart-plus storefront-cart-icon" aria-hidden="true"></i>
+                </button>
               </div>
             </article>
 
-            <article class="storefront-card" data-has-alt="true" data-search-text="mini dragons moon">
+            <article class="storefront-card" data-has-alt="true" data-search-text="mini dragons moon" data-product-id="mini_dragons-moon">
               <div class="storefront-media">
                 <img class="storefront-img storefront-main" src="assets/img/storefront/mini_dragons/moon.PNG" alt="Moon — Mini Dragons" width="800" height="800" loading="lazy" decoding="async">
                 <img class="storefront-img storefront-alt" src="assets/img/storefront/mini_dragons/moon%20alt.jpg" alt="Moon — alternate angle — Mini Dragons" width="800" height="800" loading="lazy" decoding="async">
               </div>
               <div class="storefront-card-footer">
                 <p class="storefront-caption">Moon</p>
-                <button type="button" class="storefront-swap" aria-pressed="false" aria-label="Show alternate photo of Moon"><span aria-hidden="true">⟲</span></button>
+                <button type="button" class="btn btn-outline-secondary storefront-add" aria-label="Add Moon to order">
+                  <i class="bi bi-cart-plus storefront-cart-icon" aria-hidden="true"></i>
+                </button>
               </div>
             </article>
 
-            <article class="storefront-card" data-has-alt="true" data-search-text="mini dragons poison">
+            <article class="storefront-card" data-has-alt="true" data-search-text="mini dragons poison" data-product-id="mini_dragons-poison">
               <div class="storefront-media">
                 <img class="storefront-img storefront-main" src="assets/img/storefront/mini_dragons/poison.PNG" alt="Poison — Mini Dragons" width="800" height="800" loading="lazy" decoding="async">
                 <img class="storefront-img storefront-alt" src="assets/img/storefront/mini_dragons/poison_alt.jpg" alt="Poison — alternate angle — Mini Dragons" width="800" height="800" loading="lazy" decoding="async">
               </div>
               <div class="storefront-card-footer">
                 <p class="storefront-caption">Poison</p>
-                <button type="button" class="storefront-swap" aria-pressed="false" aria-label="Show alternate photo of Poison"><span aria-hidden="true">⟲</span></button>
+                <button type="button" class="btn btn-outline-secondary storefront-add" aria-label="Add Poison to order">
+                  <i class="bi bi-cart-plus storefront-cart-icon" aria-hidden="true"></i>
+                </button>
               </div>
             </article>
 
-            <article class="storefront-card" data-has-alt="true" data-search-text="mini dragons sea">
+            <article class="storefront-card" data-has-alt="true" data-search-text="mini dragons sea" data-product-id="mini_dragons-sea">
               <div class="storefront-media">
                 <img class="storefront-img storefront-main" src="assets/img/storefront/mini_dragons/sea.jpg" alt="Sea — Mini Dragons" width="800" height="800" loading="lazy" decoding="async">
                 <img class="storefront-img storefront-alt" src="assets/img/storefront/mini_dragons/sea%20alt.jpg" alt="Sea — alternate angle — Mini Dragons" width="800" height="800" loading="lazy" decoding="async">
               </div>
               <div class="storefront-card-footer">
                 <p class="storefront-caption">Sea</p>
-                <button type="button" class="storefront-swap" aria-pressed="false" aria-label="Show alternate photo of Sea"><span aria-hidden="true">⟲</span></button>
+                <button type="button" class="btn btn-outline-secondary storefront-add" aria-label="Add Sea to order">
+                  <i class="bi bi-cart-plus storefront-cart-icon" aria-hidden="true"></i>
+                </button>
               </div>
             </article>
 
-            <article class="storefront-card" data-has-alt="true" data-search-text="mini dragons sun">
+            <article class="storefront-card" data-has-alt="true" data-search-text="mini dragons sun" data-product-id="mini_dragons-sun">
               <div class="storefront-media">
                 <img class="storefront-img storefront-main" src="assets/img/storefront/mini_dragons/sun.png" alt="Sun — Mini Dragons" width="800" height="800" loading="lazy" decoding="async">
                 <img class="storefront-img storefront-alt" src="assets/img/storefront/mini_dragons/sun_alt.jpg" alt="Sun — alternate angle — Mini Dragons" width="800" height="800" loading="lazy" decoding="async">
               </div>
               <div class="storefront-card-footer">
                 <p class="storefront-caption">Sun</p>
-                <button type="button" class="storefront-swap" aria-pressed="false" aria-label="Show alternate photo of Sun"><span aria-hidden="true">⟲</span></button>
+                <button type="button" class="btn btn-outline-secondary storefront-add" aria-label="Add Sun to order">
+                  <i class="bi bi-cart-plus storefront-cart-icon" aria-hidden="true"></i>
+                </button>
               </div>
             </article>
 
-            <article class="storefront-card" data-has-alt="true" data-search-text="mini dragons thunder">
+            <article class="storefront-card" data-has-alt="true" data-search-text="mini dragons thunder" data-product-id="mini_dragons-thunder">
               <div class="storefront-media">
                 <img class="storefront-img storefront-main" src="assets/img/storefront/mini_dragons/thunder.jpg" alt="Thunder — Mini Dragons" width="800" height="800" loading="lazy" decoding="async">
                 <img class="storefront-img storefront-alt" src="assets/img/storefront/mini_dragons/thunder_alt.jpg" alt="Thunder — alternate angle — Mini Dragons" width="800" height="800" loading="lazy" decoding="async">
               </div>
               <div class="storefront-card-footer">
                 <p class="storefront-caption">Thunder</p>
-                <button type="button" class="storefront-swap" aria-pressed="false" aria-label="Show alternate photo of Thunder"><span aria-hidden="true">⟲</span></button>
+                <button type="button" class="btn btn-outline-secondary storefront-add" aria-label="Add Thunder to order">
+                  <i class="bi bi-cart-plus storefront-cart-icon" aria-hidden="true"></i>
+                </button>
               </div>
             </article>
 
-            <article class="storefront-card" data-has-alt="true" data-search-text="mini dragons wind">
+            <article class="storefront-card" data-has-alt="true" data-search-text="mini dragons wind" data-product-id="mini_dragons-wind">
               <div class="storefront-media">
                 <img class="storefront-img storefront-main" src="assets/img/storefront/mini_dragons/Wind.png" alt="Wind — Mini Dragons" width="800" height="800" loading="lazy" decoding="async">
                 <img class="storefront-img storefront-alt" src="assets/img/storefront/mini_dragons/wind_alt.png" alt="Wind — alternate angle — Mini Dragons" width="800" height="800" loading="lazy" decoding="async">
               </div>
               <div class="storefront-card-footer">
                 <p class="storefront-caption">Wind</p>
-                <button type="button" class="storefront-swap" aria-pressed="false" aria-label="Show alternate photo of Wind"><span aria-hidden="true">⟲</span></button>
+                <button type="button" class="btn btn-outline-secondary storefront-add" aria-label="Add Wind to order">
+                  <i class="bi bi-cart-plus storefront-cart-icon" aria-hidden="true"></i>
+                </button>
               </div>
             </article>
           </div>
@@ -206,20 +255,20 @@
           </p>
         </div>
         <form class="contact-form" id="contact-form" novalidate>
-          <label for="name">Your name</label>
-          <input id="name" name="name" type="text" autocomplete="name" required placeholder="Your name">
+          <label class="form-label" for="name">Your name</label>
+          <input class="form-control" id="name" name="name" type="text" autocomplete="name" required placeholder="Your name">
 
-          <label for="email">Your email</label>
-          <input id="email" name="email" type="email" autocomplete="email" required placeholder="you@example.com">
+          <label class="form-label" for="email">Your email</label>
+          <input class="form-control" id="email" name="email" type="email" autocomplete="email" required placeholder="you@example.com">
 
-          <label for="subject">Subject</label>
-          <input id="subject" name="subject" type="text" required placeholder="Quick hello">
+          <label class="form-label" for="subject">Subject</label>
+          <input class="form-control" id="subject" name="subject" type="text" required placeholder="Quick hello">
 
-          <label for="details">Message</label>
-          <textarea id="details" name="details" rows="6" required placeholder="Whatever you would like to say…"></textarea>
+          <label class="form-label" for="details">Message</label>
+          <textarea class="form-control" id="details" name="details" rows="6" required placeholder="Whatever you would like to say…"></textarea>
 
-          <button class="btn btn-primary" type="submit">Open email draft</button>
-          <p class="form-hint" id="form-hint" role="status" aria-live="polite"></p>
+          <button class="btn btn-primary contact-submit" type="submit">Open email draft</button>
+          <p class="form-hint form-text" id="form-hint" role="status" aria-live="polite"></p>
         </form>
       </div>
     </section>
@@ -231,6 +280,7 @@
     </div>
   </footer>
 
+  <script src="config.js"></script>
   <script src="main.js" defer></script>
 </body>
 </html>

@@ -1,136 +1,245 @@
-/**
- * Set this to the address where you want print requests to land.
- * GitHub Pages has no server; this opens the visitor's mail client (mailto:).
- */
-const CONTACT_EMAIL = "sales@printeddesert.com";
-
 (function () {
-  const form = document.getElementById("contact-form");
-  const hint = document.getElementById("form-hint");
-  if (!form || !hint) return;
+  const PD = window.PD_CONFIG || {};
+  const CONTACT_EMAIL = PD.contactEmail || "";
+  const ORDER_KEY = PD.orderStorageKey || "pdDraftOrder";
 
-  form.addEventListener("submit", function (e) {
-    e.preventDefault();
-    hint.textContent = "";
+  function loadCart() {
+    try {
+      const raw = sessionStorage.getItem(ORDER_KEY);
+      const d = raw ? JSON.parse(raw) : [];
+      return Array.isArray(d) ? d : [];
+    } catch {
+      return [];
+    }
+  }
 
-    const name = form.querySelector("#name")?.value.trim() ?? "";
-    const replyTo = form.querySelector("#email")?.value.trim() ?? "";
-    const subjectLine = form.querySelector("#subject")?.value.trim() ?? "";
-    const details = form.querySelector("#details")?.value.trim() ?? "";
+  function saveCart(c) {
+    sessionStorage.setItem(ORDER_KEY, JSON.stringify(c));
+  }
 
-    if (!name || !replyTo || !subjectLine || !details) {
-      hint.textContent = "Please fill in every field.";
+  var cart = loadCart();
+
+  function readCard(card) {
+    const id = card.getAttribute("data-product-id");
+    const labelEl = card.querySelector(".storefront-caption");
+    const label = labelEl ? labelEl.textContent.trim() : "";
+    const details = card.closest("details");
+    const colEl = details && details.querySelector(".collection-disclosure-title");
+    const collection = colEl ? colEl.textContent.trim() : "";
+    const img = card.querySelector(".storefront-main");
+    const thumb = img ? img.getAttribute("src") : "";
+    return { id: id || "", label: label, collection: collection, thumb: thumb };
+  }
+
+  function renderOrderStrip() {
+    const thumbs = document.getElementById("order-thumbs");
+    const sendBtn = document.getElementById("send-order-btn");
+    if (!thumbs || !sendBtn) return;
+
+    thumbs.replaceChildren();
+
+    cart.forEach(function (item) {
+      const wrap = document.createElement("span");
+      wrap.className = "order-thumb-wrap";
+      const img = document.createElement("img");
+      img.className = "order-thumb";
+      img.src = item.thumb || "";
+      img.alt = "";
+      img.loading = "lazy";
+      img.decoding = "async";
+      img.width = 56;
+      img.height = 56;
+      wrap.appendChild(img);
+      if (item.qty && item.qty > 1) {
+        const badge = document.createElement("span");
+        badge.className = "order-thumb-qty";
+        badge.textContent = String(item.qty);
+        wrap.appendChild(badge);
+      }
+      thumbs.appendChild(wrap);
+    });
+
+    sendBtn.disabled = cart.length === 0;
+    sendBtn.setAttribute("aria-disabled", cart.length === 0 ? "true" : "false");
+  }
+
+  function addOrIncrement(item) {
+    if (!item.id) return;
+    var idx = -1;
+    for (var i = 0; i < cart.length; i++) {
+      if (cart[i].id === item.id) {
+        idx = i;
+        break;
+      }
+    }
+    if (idx >= 0) {
+      cart[idx].qty = (cart[idx].qty || 1) + 1;
+    } else {
+      cart.push({
+        id: item.id,
+        label: item.label,
+        collection: item.collection,
+        thumb: item.thumb,
+        qty: 1,
+      });
+    }
+    saveCart(cart);
+    renderOrderStrip();
+  }
+
+  document.addEventListener("click", function (e) {
+    var addAll = e.target.closest(".collection-add-all");
+    if (addAll) {
+      e.preventDefault();
+      e.stopPropagation();
+      var det = addAll.closest("details.collection-disclosure");
+      if (!det) return;
+      Array.prototype.forEach.call(det.querySelectorAll(".storefront-card"), function (card) {
+        var d = readCard(card);
+        if (d.id) addOrIncrement(d);
+      });
       return;
     }
 
-    if (!CONTACT_EMAIL || CONTACT_EMAIL.includes("example.com")) {
-      hint.textContent =
-        "Set CONTACT_EMAIL in main.js to your real address before publishing.";
-      return;
-    }
-
-    const body =
-      `Name: ${name}\r\n` +
-      `Reply-to: ${replyTo}\r\n\r\n` +
-      `${details}\r\n\r\n` +
-      `(Sent from the Printed Desert contact form.)`;
-
-    const maxLen = 1800;
-    const safeBody = body.length > maxLen ? body.slice(0, maxLen) + "\r\n…[truncated]" : body;
-
-    const href =
-      "mailto:" +
-      CONTACT_EMAIL +
-      "?subject=" +
-      encodeURIComponent(subjectLine) +
-      "&body=" +
-      encodeURIComponent(safeBody);
-
-    window.location.href = href;
-    hint.textContent = "If your mail app did not open, check pop-up or default mail settings.";
-  });
-})();
-
-/** Gallery cards: toggle alternate photo (static HTML). */
-(function () {
-  document.querySelectorAll(".storefront-swap").forEach(function (btn) {
-    btn.addEventListener("click", function () {
-      const card = btn.closest(".storefront-card");
+    var addBtn = e.target.closest(".storefront-add");
+    if (addBtn) {
+      e.preventDefault();
+      var card = addBtn.closest(".storefront-card");
       if (!card) return;
-      const on = card.classList.toggle("storefront-card--show-alt");
-      btn.setAttribute("aria-pressed", on ? "true" : "false");
-    });
+      var d = readCard(card);
+      if (d.id) addOrIncrement(d);
+    }
   });
-})();
 
-/** Search products across collections; collapse <details> with no visible matches. */
-(function () {
-  const search = document.getElementById("product-search");
-  const collectionsSection = document.getElementById("collections");
-  if (!search || !collectionsSection) return;
-
-  function normalize(s) {
-    return String(s || "")
-      .toLowerCase()
-      .trim()
-      .replace(/\s+/g, " ");
-  }
-
-  function tokens(q) {
-    return normalize(q)
-      .split(/\s+/)
-      .map(function (t) {
-        return t.replace(/[^a-z0-9_-]+/gi, "");
-      })
-      .filter(Boolean);
-  }
-
-  function cardMatches(card, q) {
-    const parts = tokens(q);
-    if (parts.length === 0) return true;
-    const hay = normalize(card.getAttribute("data-search-text") || "");
-    return parts.every(function (p) {
-      return hay.includes(p);
+  var sendBtnInit = document.getElementById("send-order-btn");
+  if (sendBtnInit) {
+    sendBtnInit.addEventListener("click", function () {
+      if (!cart.length) return;
+      saveCart(cart);
+      window.location.href = "order.html";
     });
   }
 
-  function allCards() {
-    return Array.prototype.slice.call(collectionsSection.querySelectorAll(".storefront-card"));
+  renderOrderStrip();
+
+  /** Contact form → mailto */
+  var form = document.getElementById("contact-form");
+  var hint = document.getElementById("form-hint");
+  if (form && hint) {
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      hint.textContent = "";
+
+      var name = form.querySelector("#name")?.value.trim() ?? "";
+      var replyTo = form.querySelector("#email")?.value.trim() ?? "";
+      var subjectLine = form.querySelector("#subject")?.value.trim() ?? "";
+      var details = form.querySelector("#details")?.value.trim() ?? "";
+
+      if (!name || !replyTo || !subjectLine || !details) {
+        hint.textContent = "Please fill in every field.";
+        return;
+      }
+
+      if (!CONTACT_EMAIL || CONTACT_EMAIL.includes("example.com")) {
+        hint.textContent = "Set contactEmail in config.js.";
+        return;
+      }
+
+      var body =
+        "Name: " +
+        name +
+        "\r\n" +
+        "Reply-to: " +
+        replyTo +
+        "\r\n\r\n" +
+        details +
+        "\r\n\r\n" +
+        "(Sent from the Printed Desert contact form.)";
+
+      var maxLen = 1800;
+      var safeBody = body.length > maxLen ? body.slice(0, maxLen) + "\r\n…[truncated]" : body;
+
+      var href =
+        "mailto:" +
+        CONTACT_EMAIL +
+        "?subject=" +
+        encodeURIComponent(subjectLine) +
+        "&body=" +
+        encodeURIComponent(safeBody);
+
+      window.location.href = href;
+      hint.textContent = "If your mail app did not open, check pop-up or default mail settings.";
+    });
   }
 
-  function allDisclosures() {
-    return Array.prototype.slice.call(collectionsSection.querySelectorAll("details.collection-disclosure"));
-  }
-
-  function applySearch() {
-    const raw = search.value;
-    const parts = tokens(raw);
-
-    if (parts.length === 0) {
-      allCards().forEach(function (c) {
-        c.removeAttribute("hidden");
-      });
-      allDisclosures().forEach(function (d) {
-        d.open = true;
-      });
-      return;
+  /** Search: show/hide cards; collapse empty collections */
+  var search = document.getElementById("product-search");
+  var collectionsSection = document.getElementById("collections");
+  if (search && collectionsSection) {
+    function normalize(s) {
+      return String(s || "")
+        .toLowerCase()
+        .trim()
+        .replace(/\s+/g, " ");
     }
 
-    allCards().forEach(function (card) {
-      const ok = cardMatches(card, raw);
-      if (ok) card.removeAttribute("hidden");
-      else card.setAttribute("hidden", "");
-    });
+    function tokens(q) {
+      return normalize(q)
+        .split(/\s+/)
+        .map(function (t) {
+          return t.replace(/[^a-z0-9_-]+/gi, "");
+        })
+        .filter(Boolean);
+    }
 
-    allDisclosures().forEach(function (d) {
-      var visible = false;
-      Array.prototype.forEach.call(d.querySelectorAll(".storefront-card"), function (c) {
-        if (!c.hasAttribute("hidden")) visible = true;
+    function cardMatches(card, q) {
+      var parts = tokens(q);
+      if (parts.length === 0) return true;
+      var hay = normalize(card.getAttribute("data-search-text") || "");
+      return parts.every(function (p) {
+        return hay.includes(p);
       });
-      d.open = visible;
-    });
-  }
+    }
 
-  search.addEventListener("input", applySearch);
-  search.addEventListener("search", applySearch);
+    function allCards() {
+      return Array.prototype.slice.call(collectionsSection.querySelectorAll(".storefront-card"));
+    }
+
+    function allDisclosures() {
+      return Array.prototype.slice.call(collectionsSection.querySelectorAll("details.collection-disclosure"));
+    }
+
+    function applySearch() {
+      var raw = search.value;
+      var parts = tokens(raw);
+
+      if (parts.length === 0) {
+        allCards().forEach(function (c) {
+          c.classList.remove("pd-search-hidden");
+        });
+        allDisclosures().forEach(function (d) {
+          d.open = true;
+        });
+        return;
+      }
+
+      allCards().forEach(function (card) {
+        var ok = cardMatches(card, raw);
+        card.classList.toggle("pd-search-hidden", !ok);
+      });
+
+      allDisclosures().forEach(function (d) {
+        var visible = false;
+        Array.prototype.forEach.call(d.querySelectorAll(".storefront-card"), function (c) {
+          if (!c.classList.contains("pd-search-hidden")) visible = true;
+        });
+        d.open = visible;
+      });
+    }
+
+    search.addEventListener("input", applySearch);
+    search.addEventListener("keyup", applySearch);
+    search.addEventListener("search", applySearch);
+    applySearch();
+  }
 })();
