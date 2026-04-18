@@ -47,8 +47,8 @@
       <div class="wrap">
         <div class="d-flex flex-wrap align-items-start justify-content-between gap-3 mb-3">
           <div>
-            <h2 class="h4 mb-1" id="order-strip-heading">Create an Order</h2>
-            <p class="small text-muted mb-0">Use the cart on each product. Thumbnails stack here; send when you are ready.</p>
+            <h2 class="h4 mb-1" id="order-strip-heading">Your Order</h2>
+            <p class="small order-strip-lead mb-0">Add each product to your cart, then send your request to our email.</p>
           </div>
           <button type="button" class="btn btn-primary" id="send-order-btn" disabled aria-disabled="true">
             Send order
@@ -359,16 +359,16 @@
         </div>
         <form class="contact-form" id="contact-form" novalidate>
           <label class="form-label" for="name">Your name</label>
-          <input class="form-control" id="name" name="name" type="text" autocomplete="name" required placeholder="Your name">
+          <input class="form-control" id="name" name="name" type="text" autocomplete="name" required placeholder="e.g. Jane Doe">
 
           <label class="form-label" for="email">Your email</label>
-          <input class="form-control" id="email" name="email" type="email" autocomplete="email" required placeholder="you@example.com">
+          <input class="form-control" id="email" name="email" type="email" autocomplete="email" required placeholder="name@example.com">
 
           <label class="form-label" for="subject">Subject</label>
-          <input class="form-control" id="subject" name="subject" type="text" required placeholder="Quick hello">
+          <input class="form-control" id="subject" name="subject" type="text" required placeholder="What this message is about">
 
           <label class="form-label" for="details">Message</label>
-          <textarea class="form-control" id="details" name="details" rows="6" required placeholder="Whatever you would like to say…"></textarea>
+          <textarea class="form-control" id="details" name="details" rows="6" required placeholder="Write your message here — sizing, colors, questions…"></textarea>
 
           <button class="btn btn-primary contact-submit" type="submit">Open email draft</button>
           <p class="form-hint form-text" id="form-hint" role="status" aria-live="polite"></p>
