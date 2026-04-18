@@ -31,10 +31,33 @@
     return { id: id || "", label: label, collection: collection, thumb: thumb };
   }
 
+  function syncAddButtonStates() {
+    const ids = new Set();
+    cart.forEach(function (x) {
+      ids.add(x.id);
+    });
+    document.querySelectorAll(".storefront-add").forEach(function (btn) {
+      const card = btn.closest(".storefront-card");
+      const id = card && card.getAttribute("data-product-id");
+      if (!id) return;
+      const shortLabel = btn.getAttribute("data-add-label") || "";
+      const added = ids.has(id);
+      btn.classList.toggle("storefront-add--added", added);
+      if (added) {
+        btn.setAttribute("aria-label", "Added — " + shortLabel + " (tap to add another)");
+      } else {
+        btn.setAttribute("aria-label", "Add " + shortLabel + " to order");
+      }
+    });
+  }
+
   function renderOrderStrip() {
     const thumbs = document.getElementById("order-thumbs");
     const sendBtn = document.getElementById("send-order-btn");
-    if (!thumbs || !sendBtn) return;
+    if (!thumbs || !sendBtn) {
+      syncAddButtonStates();
+      return;
+    }
 
     thumbs.replaceChildren();
 
@@ -61,6 +84,8 @@
 
     sendBtn.disabled = cart.length === 0;
     sendBtn.setAttribute("aria-disabled", cart.length === 0 ? "true" : "false");
+
+    syncAddButtonStates();
   }
 
   function addOrIncrement(item) {
@@ -96,8 +121,28 @@
       if (!det) return;
       Array.prototype.forEach.call(det.querySelectorAll(".storefront-card"), function (card) {
         var d = readCard(card);
-        if (d.id) addOrIncrement(d);
+        if (!d.id) return;
+        var j = -1;
+        for (var k = 0; k < cart.length; k++) {
+          if (cart[k].id === d.id) {
+            j = k;
+            break;
+          }
+        }
+        if (j >= 0) {
+          cart[j].qty = (cart[j].qty || 1) + 1;
+        } else {
+          cart.push({
+            id: d.id,
+            label: d.label,
+            collection: d.collection,
+            thumb: d.thumb,
+            qty: 1,
+          });
+        }
       });
+      saveCart(cart);
+      renderOrderStrip();
       return;
     }
 
