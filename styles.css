@@ -592,6 +592,7 @@ body {
   gap: 0.5rem;
   padding: 0.65rem 0.85rem;
   border-top: 1px solid var(--border);
+  flex-wrap: wrap;
 }
 
 .storefront-caption {
@@ -600,7 +601,16 @@ body {
   font-weight: 600;
 }
 
-.storefront-add {
+.storefront-cart-slot {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  min-width: min(7.5rem, 100%);
+  min-height: 46px;
+}
+
+.storefront-add.storefront-add--cart {
   flex-shrink: 0;
   width: 46px;
   height: 46px;
@@ -609,51 +619,91 @@ body {
   align-items: center;
   justify-content: center;
   transition:
-    border-color 0.3s ease-in-out,
-    background-color 0.3s ease-in-out,
-    color 0.3s ease-in-out,
-    box-shadow 0.3s ease-in-out;
+    border-color 0.25s ease-in-out,
+    background-color 0.25s ease-in-out,
+    color 0.25s ease-in-out,
+    opacity 0.25s ease-in-out,
+    transform 0.25s ease-in-out;
 }
 
-.storefront-add--added {
-  border-color: var(--accent) !important;
-  color: var(--accent) !important;
-  background-color: color-mix(in srgb, var(--accent) 14%, var(--card)) !important;
-}
-
-.storefront-add-icons {
-  position: relative;
-  width: 1.4rem;
-  height: 1.4rem;
-  display: inline-block;
-}
-
-.storefront-add-icon {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0;
+.storefront-add-cart-icon {
   font-size: 1.35rem;
   line-height: 1;
-  transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out, color 0.3s ease-in-out;
 }
 
-.storefront-add-icon--done {
-  opacity: 0;
-  transform: scale(0.82);
+.storefront-qty-controls {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.2rem 0.4rem;
+  border-radius: 10px;
+  border: 1px solid color-mix(in srgb, var(--accent) 55%, var(--border));
+  background: color-mix(in srgb, var(--accent) 12%, var(--card));
+  box-shadow: 0 1px 2px rgba(42, 31, 24, 0.06);
+  transition:
+    opacity 0.25s ease-in-out,
+    transform 0.25s ease-in-out,
+    border-color 0.25s ease-in-out;
+}
+
+.storefront-qty-num {
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+  font-size: 0.88rem;
+  min-width: 2rem;
+  text-align: center;
   color: var(--accent);
+  line-height: 1.2;
 }
 
-.storefront-add--added .storefront-add-icon--idle {
-  opacity: 0;
-  transform: scale(0.82);
+.storefront-qty-btn {
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  margin: 0;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--card);
+  color: var(--ink);
+  font-size: 1.05rem;
+  font-weight: 600;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease-in-out,
+    border-color 0.2s ease-in-out,
+    color 0.2s ease-in-out,
+    transform 0.15s ease-in-out;
 }
 
-.storefront-add--added .storefront-add-icon--done {
-  opacity: 1;
-  transform: scale(1);
+.storefront-qty-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 8%, var(--card));
+}
+
+.storefront-qty-btn:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--focus) 55%, transparent);
+  outline-offset: 1px;
+}
+
+.storefront-qty-btn:active {
+  transform: scale(0.94);
+}
+
+@media (max-width: 640px) {
+  .storefront-qty-btn {
+    width: 32px;
+    height: 32px;
+    font-size: 1.1rem;
+  }
+
+  .storefront-cart-slot {
+    min-width: min(8.25rem, 100%);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -665,8 +715,9 @@ body {
     transition: none;
   }
 
-  .storefront-add,
-  .storefront-add-icon,
+  .storefront-add.storefront-add--cart,
+  .storefront-qty-controls,
+  .storefront-qty-btn,
   .collection-chev,
   .header-search-input,
   .collection-add-all,

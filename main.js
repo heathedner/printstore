@@ -31,22 +31,44 @@
     return { id: id || "", label: label, collection: collection, thumb: thumb };
   }
 
-  function syncAddButtonStates() {
-    const ids = new Set();
-    cart.forEach(function (x) {
-      ids.add(x.id);
-    });
-    document.querySelectorAll(".storefront-add").forEach(function (btn) {
-      const card = btn.closest(".storefront-card");
+  function qtyForProductId(id) {
+    for (var i = 0; i < cart.length; i++) {
+      if (cart[i].id === id) return cart[i].qty || 1;
+    }
+    return 0;
+  }
+
+  function syncCartSlots() {
+    document.querySelectorAll(".storefront-cart-slot").forEach(function (slot) {
+      const card = slot.closest(".storefront-card");
       const id = card && card.getAttribute("data-product-id");
       if (!id) return;
-      const shortLabel = btn.getAttribute("data-add-label") || "";
-      const added = ids.has(id);
-      btn.classList.toggle("storefront-add--added", added);
-      if (added) {
-        btn.setAttribute("aria-label", "Added — " + shortLabel + " (tap to add another)");
+      const cartBtn = slot.querySelector(".storefront-add--cart");
+      const qtyRow = slot.querySelector(".storefront-qty-controls");
+      const numEl = slot.querySelector(".storefront-qty-num");
+      if (!cartBtn || !qtyRow || !numEl) return;
+
+      const qty = qtyForProductId(id);
+      const shortLabel = cartBtn.getAttribute("data-add-label") || "";
+
+      if (qty === 0) {
+        cartBtn.removeAttribute("hidden");
+        qtyRow.setAttribute("hidden", "");
+        cartBtn.setAttribute("aria-label", "Add " + shortLabel + " to order");
       } else {
-        btn.setAttribute("aria-label", "Add " + shortLabel + " to order");
+        cartBtn.setAttribute("hidden", "");
+        qtyRow.removeAttribute("hidden");
+        numEl.textContent = "+" + qty;
+        cartBtn.setAttribute("aria-label", "Add " + shortLabel + " to order");
+      }
+
+      var minusBtn = slot.querySelector(".storefront-qty-minus");
+      var plusBtn = slot.querySelector(".storefront-qty-plus");
+      if (minusBtn) {
+        minusBtn.setAttribute("aria-label", "Decrease " + shortLabel + " quantity, currently " + qty);
+      }
+      if (plusBtn) {
+        plusBtn.setAttribute("aria-label", "Increase " + shortLabel + " quantity, currently " + qty);
       }
     });
   }
@@ -56,7 +78,7 @@
     const sendBtn = document.getElementById("send-order-btn");
     const clearBtn = document.getElementById("clear-order-btn");
     if (!thumbs || !sendBtn) {
-      syncAddButtonStates();
+      syncCartSlots();
       return;
     }
 
@@ -91,7 +113,22 @@
       clearBtn.setAttribute("aria-disabled", empty ? "true" : "false");
     }
 
-    syncAddButtonStates();
+    syncCartSlots();
+  }
+
+  function decrementForProductId(id) {
+    if (!id) return;
+    for (var i = 0; i < cart.length; i++) {
+      if (cart[i].id === id) {
+        cart[i].qty = (cart[i].qty || 1) - 1;
+        if (cart[i].qty <= 0) {
+          cart.splice(i, 1);
+        }
+        saveCart(cart);
+        renderOrderStrip();
+        return;
+      }
+    }
   }
 
   function addOrIncrement(item) {
@@ -119,6 +156,30 @@
   }
 
   document.addEventListener("click", function (e) {
+    var minus = e.target.closest(".storefront-qty-minus");
+    if (minus) {
+      e.preventDefault();
+      e.stopPropagation();
+      var slot = minus.closest(".storefront-cart-slot");
+      var card = slot && slot.closest(".storefront-card");
+      var id = card && card.getAttribute("data-product-id");
+      if (id) decrementForProductId(id);
+      return;
+    }
+
+    var plus = e.target.closest(".storefront-qty-plus");
+    if (plus) {
+      e.preventDefault();
+      e.stopPropagation();
+      var slotP = plus.closest(".storefront-cart-slot");
+      var cardP = slotP && slotP.closest(".storefront-card");
+      if (cardP) {
+        var d = readCard(cardP);
+        if (d.id) addOrIncrement(d);
+      }
+      return;
+    }
+
     var addAll = e.target.closest(".collection-add-all");
     if (addAll) {
       e.preventDefault();
@@ -152,7 +213,7 @@
       return;
     }
 
-    var addBtn = e.target.closest(".storefront-add");
+    var addBtn = e.target.closest(".storefront-add--cart");
     if (addBtn) {
       e.preventDefault();
       var card = addBtn.closest(".storefront-card");
