@@ -369,3 +369,140 @@ body {
   color: var(--muted);
   text-align: center;
 }
+
+.hero-gallery-link {
+  margin: 1.25rem 0 0;
+  font-size: 0.98rem;
+}
+
+.hero-gallery-link a {
+  color: var(--accent);
+  font-weight: 600;
+  text-underline-offset: 3px;
+}
+
+.hero-gallery-link a:hover {
+  color: var(--accent-hover);
+}
+
+.storefront-root {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+
+.storefront-empty {
+  margin: 0;
+  padding: 1rem 1.25rem;
+  border-radius: var(--radius);
+  border: 1px dashed var(--border);
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.storefront-collection-title {
+  font-family: "Instrument Sans", sans-serif;
+  font-size: 1.35rem;
+  margin: 0 0 1rem;
+  color: color-mix(in srgb, var(--accent) 28%, var(--ink));
+}
+
+.storefront-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 220px), 1fr));
+  gap: 1rem;
+}
+
+.storefront-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.storefront-media {
+  position: relative;
+  aspect-ratio: 1;
+  background: color-mix(in srgb, var(--ink) 6%, var(--bg));
+}
+
+.storefront-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: opacity 0.22s ease;
+}
+
+.storefront-alt {
+  opacity: 0;
+}
+
+.storefront-card--show-alt .storefront-main {
+  opacity: 0;
+}
+
+.storefront-card--show-alt .storefront-alt {
+  opacity: 1;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .storefront-card[data-has-alt="true"]:hover .storefront-main {
+    opacity: 0;
+  }
+
+  .storefront-card[data-has-alt="true"]:hover .storefront-alt {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .storefront-img {
+    transition: none;
+  }
+}
+
+.storefront-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: 0.65rem 0.85rem;
+  border-top: 1px solid var(--border);
+}
+
+.storefront-caption {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.storefront-swap {
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--ink);
+  font-size: 1.15rem;
+  cursor: pointer;
+  line-height: 1;
+}
+
+.storefront-swap:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.storefront-swap:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--focus) 45%, transparent);
+  outline-offset: 2px;
+}

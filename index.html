@@ -38,6 +38,18 @@
           and I print and fulfill each order by hand.
         </p>
         <a class="btn btn-primary" href="#contact">Request a print</a>
+        <p class="hero-gallery-link"><a href="#storefront">Browse the gallery</a></p>
+      </div>
+    </section>
+
+    <section class="section section-alt" id="storefront" aria-labelledby="storefront-heading">
+      <div class="wrap">
+        <h2 id="storefront-heading">Storefront gallery</h2>
+        <p class="section-intro">
+          A few things I have printed—photos only, not for sale through this site. Hover a card (or use the swap control) to see a second angle when available.
+        </p>
+        <div id="storefront-root" class="storefront-root" aria-live="polite" aria-busy="true"></div>
+        <p id="storefront-empty" class="storefront-empty" hidden></p>
       </div>
     </section>
 
@@ -112,6 +124,7 @@
     </div>
   </footer>
 
-  <script src="main.js"></script>
+  <script src="main.js" defer></script>
+  <script src="storefront.js" defer></script>
 </body>
 </html>

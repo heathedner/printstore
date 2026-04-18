@@ -1,0 +1,90 @@
+{
+  "version": 1,
+  "generatedAt": "2026-04-18T12:00:00.000Z",
+  "collections": [
+    {
+      "id": "mini_dragons",
+      "title": "Mini Dragons",
+      "items": [
+        {
+          "slug": "bone",
+          "label": "Bone",
+          "main": "assets/img/storefront/mini_dragons/bone.jpg",
+          "alt": "assets/img/storefront/mini_dragons/bone alt.jpg"
+        },
+        {
+          "slug": "cookie",
+          "label": "Cookie",
+          "main": "assets/img/storefront/mini_dragons/cookie.png",
+          "alt": "assets/img/storefront/mini_dragons/cookie alt.jpg"
+        },
+        {
+          "slug": "easter",
+          "label": "Easter",
+          "main": "assets/img/storefront/mini_dragons/easter.PNG",
+          "alt": null
+        },
+        {
+          "slug": "fire",
+          "label": "Fire",
+          "main": "assets/img/storefront/mini_dragons/fire.jpg",
+          "alt": "assets/img/storefront/mini_dragons/fire_alt.jpg"
+        },
+        {
+          "slug": "ice",
+          "label": "Ice",
+          "main": "assets/img/storefront/mini_dragons/ice.jpg",
+          "alt": "assets/img/storefront/mini_dragons/ice_alt.jpg"
+        },
+        {
+          "slug": "love",
+          "label": "Love",
+          "main": "assets/img/storefront/mini_dragons/love.jpg",
+          "alt": "assets/img/storefront/mini_dragons/love_alt.jpg"
+        },
+        {
+          "slug": "magma",
+          "label": "Magma",
+          "main": "assets/img/storefront/mini_dragons/magma.jpg",
+          "alt": "assets/img/storefront/mini_dragons/magma_alt.jpg"
+        },
+        {
+          "slug": "moon",
+          "label": "Moon",
+          "main": "assets/img/storefront/mini_dragons/moon.PNG",
+          "alt": "assets/img/storefront/mini_dragons/moon alt.jpg"
+        },
+        {
+          "slug": "poison",
+          "label": "Poison",
+          "main": "assets/img/storefront/mini_dragons/poison.PNG",
+          "alt": "assets/img/storefront/mini_dragons/poison_alt.jpg"
+        },
+        {
+          "slug": "sea",
+          "label": "Sea",
+          "main": "assets/img/storefront/mini_dragons/sea.jpg",
+          "alt": "assets/img/storefront/mini_dragons/sea alt.jpg"
+        },
+        {
+          "slug": "sun",
+          "label": "Sun",
+          "main": "assets/img/storefront/mini_dragons/sun.png",
+          "alt": "assets/img/storefront/mini_dragons/sun_alt.jpg"
+        },
+        {
+          "slug": "thunder",
+          "label": "Thunder",
+          "main": "assets/img/storefront/mini_dragons/thunder.jpg",
+          "alt": "assets/img/storefront/mini_dragons/thunder_alt.jpg"
+        },
+        {
+          "slug": "wind",
+          "label": "Wind",
+          "main": "assets/img/storefront/mini_dragons/Wind.png",
+          "alt": "assets/img/storefront/mini_dragons/wind_alt.png"
+        }
+      ]
+    }
+  ]
+}
