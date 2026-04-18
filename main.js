@@ -38,6 +38,59 @@
     return 0;
   }
 
+  function sumQtyForCollectionPrefix(prefix) {
+    if (!prefix) return 0;
+    var needle = prefix + "-";
+    var sum = 0;
+    for (var i = 0; i < cart.length; i++) {
+      if (cart[i].id && cart[i].id.indexOf(needle) === 0) {
+        sum += cart[i].qty || 1;
+      }
+    }
+    return sum;
+  }
+
+  function syncCollectionSlots() {
+    document.querySelectorAll("details.collection-disclosure[data-collection-prefix]").forEach(function (det) {
+      var prefix = det.getAttribute("data-collection-prefix");
+      if (!prefix) return;
+      var slot = det.querySelector(".collection-cart-slot");
+      if (!slot) return;
+      var addAllBtn = slot.querySelector(".collection-add-all");
+      var qtyRow = slot.querySelector(".collection-qty-controls");
+      var numEl = slot.querySelector(".collection-qty-num");
+      if (!addAllBtn || !qtyRow || !numEl) return;
+
+      var sum = sumQtyForCollectionPrefix(prefix);
+      var titleEl = det.querySelector(".collection-disclosure-title");
+      var label = titleEl && titleEl.textContent ? titleEl.textContent.trim() : "Collection";
+
+      if (sum === 0) {
+        addAllBtn.removeAttribute("hidden");
+        qtyRow.setAttribute("hidden", "");
+      } else {
+        addAllBtn.setAttribute("hidden", "");
+        qtyRow.removeAttribute("hidden");
+        numEl.textContent = "+" + sum;
+      }
+
+      var cMinus = slot.querySelector(".collection-qty-minus");
+      var cPlus = slot.querySelector(".collection-qty-plus");
+      if (cMinus) {
+        cMinus.setAttribute(
+          "aria-label",
+          "Remove one from each " + label + " in the order (total pieces: " + sum + ")",
+        );
+      }
+      if (cPlus) {
+        cPlus.setAttribute(
+          "aria-label",
+          "Add one more of each " + label + " (total pieces: " + sum + ")",
+        );
+      }
+    });
+  }
+
   function syncCartSlots() {
     document.querySelectorAll(".storefront-cart-slot").forEach(function (slot) {
       const card = slot.closest(".storefront-card");
@@ -79,6 +132,7 @@
     const clearBtn = document.getElementById("clear-order-btn");
     if (!thumbs || !sendBtn) {
       syncCartSlots();
+      syncCollectionSlots();
       return;
     }
 
@@ -114,6 +168,50 @@
     }
 
     syncCartSlots();
+    syncCollectionSlots();
+  }
+
+  function addAllFromDetails(det) {
+    if (!det) return;
+    Array.prototype.forEach.call(det.querySelectorAll(".storefront-card"), function (card) {
+      var d = readCard(card);
+      if (!d.id) return;
+      var j = -1;
+      for (var k = 0; k < cart.length; k++) {
+        if (cart[k].id === d.id) {
+          j = k;
+          break;
+        }
+      }
+      if (j >= 0) {
+        cart[j].qty = (cart[j].qty || 1) + 1;
+      } else {
+        cart.push({
+          id: d.id,
+          label: d.label,
+          collection: d.collection,
+          thumb: d.thumb,
+          qty: 1,
+        });
+      }
+    });
+    saveCart(cart);
+    renderOrderStrip();
+  }
+
+  function decrementCollectionPrefix(prefix) {
+    if (!prefix) return;
+    var needle = prefix + "-";
+    for (var i = cart.length - 1; i >= 0; i--) {
+      if (cart[i].id && cart[i].id.indexOf(needle) === 0) {
+        cart[i].qty = (cart[i].qty || 1) - 1;
+        if (cart[i].qty <= 0) {
+          cart.splice(i, 1);
+        }
+      }
+    }
+    saveCart(cart);
+    renderOrderStrip();
   }
 
   function decrementForProductId(id) {
@@ -180,36 +278,32 @@
       return;
     }
 
+    var cMinus = e.target.closest(".collection-qty-minus");
+    if (cMinus) {
+      e.preventDefault();
+      e.stopPropagation();
+      var detM = cMinus.closest("details.collection-disclosure[data-collection-prefix]");
+      var preM = detM && detM.getAttribute("data-collection-prefix");
+      if (preM) decrementCollectionPrefix(preM);
+      return;
+    }
+
+    var cPlus = e.target.closest(".collection-qty-plus");
+    if (cPlus) {
+      e.preventDefault();
+      e.stopPropagation();
+      var detP = cPlus.closest("details.collection-disclosure[data-collection-prefix]");
+      if (detP) addAllFromDetails(detP);
+      return;
+    }
+
     var addAll = e.target.closest(".collection-add-all");
     if (addAll) {
       e.preventDefault();
       e.stopPropagation();
       var det = addAll.closest("details.collection-disclosure");
       if (!det) return;
-      Array.prototype.forEach.call(det.querySelectorAll(".storefront-card"), function (card) {
-        var d = readCard(card);
-        if (!d.id) return;
-        var j = -1;
-        for (var k = 0; k < cart.length; k++) {
-          if (cart[k].id === d.id) {
-            j = k;
-            break;
-          }
-        }
-        if (j >= 0) {
-          cart[j].qty = (cart[j].qty || 1) + 1;
-        } else {
-          cart.push({
-            id: d.id,
-            label: d.label,
-            collection: d.collection,
-            thumb: d.thumb,
-            qty: 1,
-          });
-        }
-      });
-      saveCart(cart);
-      renderOrderStrip();
+      addAllFromDetails(det);
       return;
     }
 

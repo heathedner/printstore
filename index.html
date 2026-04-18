@@ -67,15 +67,22 @@
       <div class="wrap">
         <h1 class="page-title" id="collections-heading">Collections</h1>
 
-        <details class="collection-disclosure" open>
+        <details class="collection-disclosure" open data-collection-prefix="mini_dragons">
           <summary class="collection-disclosure-summary">
             <span class="collection-disclosure-title">Mini Dragons</span>
-            <button
-              type="button"
-              class="btn btn-sm btn-outline-secondary collection-add-all"
-              aria-label="Add all Mini Dragons to order">
-              Add all
-            </button>
+            <div class="collection-cart-slot">
+              <button
+                type="button"
+                class="btn btn-sm btn-outline-secondary collection-add-all"
+                aria-label="Add all Mini Dragons to order">
+                Add all
+              </button>
+              <div class="collection-qty-controls storefront-qty-controls" hidden>
+                <button type="button" class="storefront-qty-btn collection-qty-minus" aria-label="Decrease Mini Dragons quantity">−</button>
+                <span class="collection-qty-num storefront-qty-num" aria-live="polite">+0</span>
+                <button type="button" class="storefront-qty-btn collection-qty-plus" aria-label="Increase Mini Dragons quantity">+</button>
+              </div>
+            </div>
             <span class="collection-chev" aria-hidden="true"></span>
           </summary>
           <div class="storefront-grid">
