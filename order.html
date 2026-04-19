@@ -2,12 +2,22 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
+  <style id="pd-paint">
+    html, body { background-color: #361a12; }
+    @media (prefers-color-scheme: dark) {
+      html, body { background-color: #0e0a08; }
+    }
+  </style>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Printed Desert — review and send your order via Google Form.">
-  <meta name="theme-color" content="#a64d32">
+  <meta name="theme-color" content="#361a12">
   <title>Printed Desert · Send order</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
-  <link rel="stylesheet" href="styles.css?v=4">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" crossorigin="anonymous">
+  <link rel="stylesheet" href="styles.css?v=6">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,600;0,9..40,700;1,9..40,400&family=Instrument+Sans:wght@600;700&display=swap" rel="stylesheet">
 </head>
 <body class="bg-body order-page">
   <header class="site-header">
@@ -70,7 +80,7 @@
 
         <div class="order-form-group order-form-group--notes">
           <label class="order-form-label" for="order-notes">Notes</label>
-          <textarea class="form-control order-form-control" id="order-notes" name="notes" rows="4" placeholder="Colors, quantities, questions…"></textarea>
+          <textarea class="form-control order-form-control" id="order-notes" name="notes" rows="4" placeholder="..."></textarea>
           <p class="order-field-hint">Optional — anything else we should know.</p>
         </div>
 

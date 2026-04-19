@@ -1,0 +1,16 @@
+---
+description: Commit and push to origin after project changes unless the user opts out.
+alwaysApply: true
+---
+
+# Git — commit and push after changes
+
+When you make edits to this repo in a session:
+
+1. Run `git status`. If there are changes, stage them (`git add` for the files you touched, or `git add -A` when appropriate).
+2. Commit with a short, accurate message in imperative mood (what changed and why).
+3. Push: `git push origin main` (use the branch from `git branch` if not `main`).
+
+Do this in the **same turn** after finishing the edits, unless the user explicitly says not to commit/push or the workspace is not a git repo.
+
+If push fails (network, auth), show the error and next steps; do not claim success.

@@ -18,11 +18,13 @@
   --sand: var(--rock-sand);
   --sienna: var(--rock-chocolate);
 
-  /* Page shell — peach mist → sand (logo cap + sand layers) */
-  --bg: var(--rock-sand);
-  --bg-gradient-top: #fdf6ee;
-  --bg-gradient-mid: #f3e6d8;
-  --bg-gradient-bottom: #e6d1b1;
+  /* Page shell — dark terracotta red (first paint + gradient; see inline <style> in HTML) */
+  --bg: #3d1810;
+  --bg-gradient-top: #6b3528;
+  --bg-gradient-mid: #4f281c;
+  --bg-gradient-bottom: #361a12;
+  --body-text: #f4ebe4;
+  --body-muted: #c9b8a8;
 
   /* Sticky header — terracotta into sienna (logo bands 2–3) */
   --header-bg-1: #d56d45;
@@ -56,10 +58,12 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg: #1a1410;
-    --bg-gradient-top: #252018;
-    --bg-gradient-mid: #1c1712;
-    --bg-gradient-bottom: #14100d;
+    --bg: #120d0a;
+    --bg-gradient-top: #2a1812;
+    --bg-gradient-mid: #1a110c;
+    --bg-gradient-bottom: #0e0a08;
+    --body-text: #f0e6dc;
+    --body-muted: #b8a090;
 
     --header-bg-1: #5a3828;
     --header-bg-2: #3d2b1f;
@@ -93,6 +97,7 @@
 
 html {
   scroll-behavior: smooth;
+  background-color: var(--bg-gradient-bottom);
 }
 
 body {
@@ -100,7 +105,7 @@ body {
   font-family: "DM Sans", system-ui, sans-serif;
   font-size: 1.05rem;
   line-height: 1.55;
-  color: var(--ink);
+  color: var(--body-text);
   background: var(--bg);
   background-image: linear-gradient(
     165deg,
@@ -127,7 +132,7 @@ body {
   height: auto;
   padding: 0.5rem 1rem;
   background: var(--ink);
-  color: var(--bg);
+  color: var(--body-text);
   z-index: 100;
   border-radius: 8px;
 }
@@ -263,8 +268,15 @@ body {
   font-family: "Instrument Sans", sans-serif;
   font-size: clamp(1.5rem, 3vw, 1.85rem);
   margin: 0 0 0.75rem;
-  color: color-mix(in srgb, var(--accent) 28%, var(--ink));
   font-weight: 700;
+}
+
+#collections .page-title {
+  color: color-mix(in srgb, var(--accent) 28%, var(--ink));
+}
+
+.order-page .page-title {
+  color: color-mix(in srgb, var(--accent) 22%, var(--body-text));
 }
 
 .section {
@@ -313,7 +325,7 @@ body.bg-body {
 
 /* —— Order page (order.html): match index palette + contact-style panel —— */
 .order-page {
-  color: var(--ink);
+  color: var(--body-text);
 }
 
 .order-page .site-header .order-back-link {
@@ -334,7 +346,7 @@ body.bg-body {
 }
 
 .order-page-main {
-  color: var(--ink);
+  color: var(--body-text);
 }
 
 .order-page .wrap.order-page-inner {
@@ -343,7 +355,7 @@ body.bg-body {
 
 .order-page-lead {
   margin-bottom: 1.75rem;
-  color: var(--muted);
+  color: var(--body-muted);
   font-size: 1rem;
   line-height: 1.55;
 }
@@ -600,17 +612,24 @@ body.bg-body {
   }
 }
 
-.section h2 {
+#order-strip h2 {
   font-family: "Instrument Sans", sans-serif;
   font-size: clamp(1.5rem, 3vw, 1.85rem);
   margin: 0 0 0.75rem;
   color: color-mix(in srgb, var(--accent) 28%, var(--ink));
 }
 
+#contact h2 {
+  font-family: "Instrument Sans", sans-serif;
+  font-size: clamp(1.5rem, 3vw, 1.85rem);
+  margin: 0 0 0.75rem;
+  color: color-mix(in srgb, var(--accent) 22%, var(--body-text));
+}
+
 .section-intro {
   margin: 0 0 1.75rem;
   max-width: var(--max);
-  color: var(--muted);
+  color: var(--body-muted);
 }
 
 .card-grid {
@@ -815,7 +834,7 @@ body.bg-body {
 .footer-inner p {
   margin: 0;
   font-size: 0.9rem;
-  color: var(--muted);
+  color: var(--body-muted);
   text-align: center;
 }
 
