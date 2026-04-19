@@ -43,7 +43,7 @@
 
     items.forEach(function (it) {
       const li = document.createElement("li");
-      li.className = "list-group-item d-flex align-items-center gap-3";
+      li.className = "order-item-row";
 
       if (it.thumb) {
         const img = document.createElement("img");
@@ -51,19 +51,19 @@
         img.alt = "";
         img.width = 48;
         img.height = 48;
-        img.className = "rounded border flex-shrink-0";
+        img.className = "order-item-thumb rounded border flex-shrink-0";
         img.style.objectFit = "cover";
         img.loading = "lazy";
         li.appendChild(img);
       }
 
       const text = document.createElement("div");
-      text.className = "flex-grow-1 min-w-0";
+      text.className = "order-item-text";
       const title = document.createElement("div");
-      title.className = "fw-semibold";
+      title.className = "order-item-title";
       title.textContent = it.label || it.id;
       const sub = document.createElement("div");
-      sub.className = "small text-muted";
+      sub.className = "order-item-meta";
       const qty = it.qty && it.qty > 1 ? " ×" + it.qty : "";
       sub.textContent = (it.collection || "") + qty;
       text.appendChild(title);
