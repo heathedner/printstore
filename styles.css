@@ -26,8 +26,9 @@
   --body-text: #f4ebe4;
   --body-muted: #c9b8a8;
 
-  /* Text inputs + header search — warm gold field, black text */
-  --field-bg: #ddb67f;
+  /* Text inputs + header search */
+  --field-bg: #e5d5bd;
+  --field-bg-hover: #f7d2c1;
   --field-text: #000000;
   --field-placeholder: #4a4a4a;
 
@@ -70,7 +71,8 @@
     --body-text: #f0e6dc;
     --body-muted: #b8a090;
 
-    --field-bg: #ddb67f;
+    --field-bg: #e5d5bd;
+    --field-bg-hover: #f7d2c1;
     --field-text: #000000;
     --field-placeholder: #4a4a4a;
 
@@ -270,7 +272,10 @@ body {
 
 .header-search-input {
   min-height: 40px;
-  transition: border-color 0.25s ease-in-out, box-shadow 0.25s ease-in-out;
+  transition:
+    border-color 0.25s ease-in-out,
+    box-shadow 0.25s ease-in-out,
+    background-color 0.2s ease;
 }
 
 .site-header .header-search-input.form-control {
@@ -285,7 +290,8 @@ body {
 }
 
 .site-header .header-search-input:hover {
-  border-color: color-mix(in srgb, var(--accent) 40%, var(--field-bg)) !important;
+  background-color: var(--field-bg-hover) !important;
+  border-color: color-mix(in srgb, var(--accent) 40%, var(--field-bg-hover)) !important;
 }
 
 .site-header .header-search-input:focus,
@@ -448,7 +454,10 @@ body.bg-body {
   background: var(--field-bg) !important;
   color: var(--field-text) !important;
   min-height: 50px;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    background-color 0.2s ease;
 }
 
 .order-form-panel textarea.order-form-control {
@@ -463,7 +472,8 @@ body.bg-body {
 }
 
 .order-form-control:hover {
-  border-color: color-mix(in srgb, var(--accent) 45%, var(--border));
+  background: var(--field-bg-hover) !important;
+  border-color: color-mix(in srgb, var(--accent) 40%, var(--field-bg-hover));
 }
 
 .order-form-control:focus,
@@ -770,7 +780,10 @@ body.bg-body {
   background: var(--field-bg) !important;
   color: var(--field-text) !important;
   min-height: 50px;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    background-color 0.2s ease;
 }
 
 .contact-form textarea.form-control {
@@ -785,7 +798,8 @@ body.bg-body {
 }
 
 .contact-form .form-control:hover {
-  border-color: color-mix(in srgb, var(--accent) 45%, var(--border));
+  background: var(--field-bg-hover) !important;
+  border-color: color-mix(in srgb, var(--accent) 40%, var(--field-bg-hover));
 }
 
 .contact-form .form-control:focus,
