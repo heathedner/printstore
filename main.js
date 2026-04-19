@@ -347,13 +347,7 @@
 
       var name = form.querySelector("#name")?.value.trim() ?? "";
       var replyTo = form.querySelector("#email")?.value.trim() ?? "";
-      var subjectLine = form.querySelector("#subject")?.value.trim() ?? "";
       var details = form.querySelector("#details")?.value.trim() ?? "";
-
-      var messageBody =
-        (subjectLine ? "Subject: " + subjectLine : "") +
-        (subjectLine && details ? "\n\n" : "") +
-        (details || "");
 
       if (!name) {
         hint.textContent = "Please enter your name.";
@@ -363,14 +357,14 @@
         hint.textContent = "Please enter your email.";
         return;
       }
-      if (!subjectLine || !details) {
-        hint.textContent = "Please fill in both subject and message.";
+      if (!details) {
+        hint.textContent = "Please enter a message.";
         return;
       }
 
       var maxMsg = 12000;
       var safeMessage =
-        messageBody.length > maxMsg ? messageBody.slice(0, maxMsg) + "\n\n…[truncated]" : messageBody;
+        details.length > maxMsg ? details.slice(0, maxMsg) + "\n\n…[truncated]" : details;
 
       if (typeof window.PD_googleFormIsConfigured === "function" && window.PD_googleFormIsConfigured()) {
         window.PD_submitGoogleForm(
@@ -410,7 +404,7 @@
         "mailto:" +
         CONTACT_EMAIL +
         "?subject=" +
-        encodeURIComponent(subjectLine) +
+        encodeURIComponent("Printed Desert contact") +
         "&body=" +
         encodeURIComponent(safeBody);
 
