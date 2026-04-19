@@ -1,40 +1,87 @@
-/* Palette sampled from layered-rock logo: peach cap, red rock, ochre, sand, sienna */
+/*
+ * Color system — sampled from assets/img/layer_rock_logo.png
+ * Layer order (top → bottom): cap peach, terracotta, sienna, ochre, sand, chocolate; gaps/ink = umber.
+ */
 :root {
-  --cap: #e8b085;
-  --red-rock: #c55a3b;
-  --ochre: #d99e48;
-  --sand: #d6b995;
-  --sienna: #b5754e;
+  --rock-cap: #f4b183;
+  --rock-terracotta: #d56d45;
+  --rock-sienna: #a64d32;
+  --rock-ochre: #e1a336;
+  --rock-sand: #e6d1b1;
+  --rock-chocolate: #8c5638;
+  --rock-umber: #3d2b1f;
 
-  --bg: #f6ebe3;
-  --bg-alt: #ead9c8;
-  --ink: #2a1f18;
-  --muted: #6b5346;
-  --accent: var(--red-rock);
-  --accent-hover: #a8482f;
-  --accent-secondary: var(--ochre);
-  --card: #fff9f3;
-  --border: #dcc9b8;
-  --focus: #9a4d32;
+  /* Legacy semantic names (used across components) */
+  --cap: var(--rock-cap);
+  --red-rock: var(--rock-sienna);
+  --ochre: var(--rock-ochre);
+  --sand: var(--rock-sand);
+  --sienna: var(--rock-chocolate);
+
+  /* Page shell — peach mist → sand (logo cap + sand layers) */
+  --bg: var(--rock-sand);
+  --bg-gradient-top: #fdf6ee;
+  --bg-gradient-mid: #f3e6d8;
+  --bg-gradient-bottom: #e6d1b1;
+
+  /* Sticky header — terracotta into sienna (logo bands 2–3) */
+  --header-bg-1: #d56d45;
+  --header-bg-2: #a64d32;
+  --header-border-strong: color-mix(in srgb, var(--rock-umber) 28%, var(--rock-chocolate));
+
+  /* Your order — sand-forward, slightly lifted from page base */
+  --order-strip-bg-1: #efe4d5;
+  --order-strip-bg-2: #e6d1b1;
+
+  /* Collections — ochre glow tapering to terracotta (logo ochre + band 2) */
+  --collections-bg-1: #f0d9a8;
+  --collections-bg-2: #e8c06a;
+  --collections-bg-mix: #d56d45;
+
+  /* Rows / chips */
+  --bg-alt: #ead9c4;
+  --ink: var(--rock-umber);
+  --muted: #6a4d3a;
+  --accent: var(--rock-sienna);
+  --accent-hover: #8f4028;
+  --accent-secondary: var(--rock-ochre);
+  --card: #fffbf6;
+  --border: color-mix(in srgb, var(--rock-chocolate) 32%, var(--rock-sand));
+  --focus: var(--rock-terracotta);
   --radius: 12px;
-  --shadow: 0 10px 28px rgba(42, 31, 24, 0.09);
+  --shadow: 0 10px 28px color-mix(in srgb, var(--rock-umber) 12%, transparent);
   --max: 72ch;
   --gutter: clamp(1rem, 4vw, 2rem);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg: #1a1411;
-    --bg-alt: #241c17;
-    --ink: #f2e6d9;
-    --muted: #c4a995;
-    --accent: #e07855;
-    --accent-hover: #f09062;
-    --accent-secondary: #e8b565;
-    --card: #221a15;
-    --border: #3d3028;
-    --focus: #f0a080;
-    --shadow: 0 12px 32px rgba(0, 0, 0, 0.4);
+    --bg: #1a1410;
+    --bg-gradient-top: #252018;
+    --bg-gradient-mid: #1c1712;
+    --bg-gradient-bottom: #14100d;
+
+    --header-bg-1: #5a3828;
+    --header-bg-2: #3d2b1f;
+    --header-border-strong: color-mix(in srgb, var(--rock-ochre) 22%, var(--border));
+
+    --order-strip-bg-1: #2a211a;
+    --order-strip-bg-2: #221b15;
+
+    --collections-bg-1: #3d2e22;
+    --collections-bg-2: #2e231a;
+    --collections-bg-mix: #231a14;
+
+    --bg-alt: #241c16;
+    --ink: #f4e8dc;
+    --muted: #c9b09a;
+    --accent: #f0a070;
+    --accent-hover: #f4b183;
+    --accent-secondary: #e8c066;
+    --card: #231c17;
+    --border: #4a3b32;
+    --focus: #e07855;
+    --shadow: 0 12px 32px rgba(0, 0, 0, 0.45);
   }
 }
 
@@ -55,6 +102,12 @@ body {
   line-height: 1.55;
   color: var(--ink);
   background: var(--bg);
+  background-image: linear-gradient(
+    165deg,
+    var(--bg-gradient-top) 0%,
+    var(--bg-gradient-mid) 42%,
+    var(--bg-gradient-bottom) 100%
+  );
 }
 
 .skip-link {
@@ -93,9 +146,9 @@ body {
 }
 
 .site-header {
-  border-bottom: 1px solid var(--border);
-  background: color-mix(in srgb, var(--bg) 92%, transparent);
-  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--header-border-strong);
+  background: linear-gradient(135deg, var(--header-bg-1) 0%, var(--header-bg-2) 100%);
+  box-shadow: 0 1px 0 color-mix(in srgb, var(--ink) 6%, transparent);
   position: sticky;
   top: 0;
   z-index: 10;
@@ -222,6 +275,42 @@ body {
   background: var(--bg-alt);
 }
 
+/* Order strip vs collections: separate terracotta bands (overrides .section-alt) */
+#order-strip.section-alt {
+  background: linear-gradient(180deg, var(--order-strip-bg-1) 0%, var(--order-strip-bg-2) 100%);
+  border-bottom: 1px solid color-mix(in srgb, var(--ink) 8%, transparent);
+  box-shadow: inset 0 1px 0 color-mix(in srgb, #fff 25%, transparent);
+}
+
+#collections.section-alt {
+  background: linear-gradient(
+    175deg,
+    var(--collections-bg-1) 0%,
+    var(--collections-bg-2) 55%,
+    var(--collections-bg-mix) 100%
+  );
+  border-top: 1px solid color-mix(in srgb, var(--ink) 7%, transparent);
+  box-shadow: inset 0 1px 0 color-mix(in srgb, #fff 18%, transparent);
+}
+
+@media (prefers-color-scheme: dark) {
+  #order-strip.section-alt,
+  #collections.section-alt {
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  }
+}
+
+/* Order page uses Bootstrap .bg-body — keep same shell gradient as index */
+body.bg-body {
+  background-color: transparent;
+  background-image: linear-gradient(
+    165deg,
+    var(--bg-gradient-top) 0%,
+    var(--bg-gradient-mid) 42%,
+    var(--bg-gradient-bottom) 100%
+  );
+}
+
 .section h2 {
   font-family: "Instrument Sans", sans-serif;
   font-size: clamp(1.5rem, 3vw, 1.85rem);
@@ -337,7 +426,7 @@ body {
   padding: 0.75rem 0.9rem;
   border-radius: 10px;
   border: 2px solid color-mix(in srgb, var(--ink) 12%, var(--border));
-  background: #fffdfa !important;
+  background: var(--card) !important;
   color: var(--ink);
   min-height: 50px;
   transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
@@ -349,7 +438,7 @@ body {
 }
 
 .contact-form .form-control::placeholder {
-  color: #7a6558;
+  color: color-mix(in srgb, var(--muted) 88%, var(--ink));
   opacity: 1;
   font-weight: 500;
 }
@@ -362,25 +451,25 @@ body {
 .contact-form .form-control:focus-visible {
   outline: none;
   border-color: var(--accent);
-  background: #fff !important;
+  background: var(--card) !important;
   box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 22%, transparent);
 }
 
 @media (prefers-color-scheme: dark) {
   .contact-form .form-control {
-    background: #2a221c !important;
+    background: var(--card) !important;
     border-color: color-mix(in srgb, var(--accent) 28%, var(--border));
     color: var(--ink);
   }
 
   .contact-form .form-control::placeholder {
-    color: #c4b5a4;
+    color: var(--muted);
     font-weight: 500;
   }
 
   .contact-form .form-control:focus,
   .contact-form .form-control:focus-visible {
-    background: #352a22 !important;
+    background: color-mix(in srgb, var(--card) 94%, var(--rock-chocolate)) !important;
     box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 28%, transparent);
   }
 }
