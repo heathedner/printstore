@@ -337,7 +337,7 @@
 
   renderOrderStrip();
 
-  /** Contact form → mailto */
+  /** Contact form → Google Form (preferred) or mailto fallback */
   var form = document.getElementById("contact-form");
   var hint = document.getElementById("form-hint");
   if (form && hint) {
@@ -350,13 +350,45 @@
       var subjectLine = form.querySelector("#subject")?.value.trim() ?? "";
       var details = form.querySelector("#details")?.value.trim() ?? "";
 
-      if (!name || !replyTo || !subjectLine || !details) {
-        hint.textContent = "Please fill in every field.";
+      var messageBody =
+        (subjectLine ? "Subject: " + subjectLine : "") +
+        (subjectLine && details ? "\n\n" : "") +
+        (details || "");
+
+      if (!name) {
+        hint.textContent = "Please enter your name.";
+        return;
+      }
+      if (!replyTo) {
+        hint.textContent = "Please enter your email.";
+        return;
+      }
+      if (!subjectLine || !details) {
+        hint.textContent = "Please fill in both subject and message.";
+        return;
+      }
+
+      var maxMsg = 12000;
+      var safeMessage =
+        messageBody.length > maxMsg ? messageBody.slice(0, maxMsg) + "\n\n…[truncated]" : messageBody;
+
+      if (typeof window.PD_googleFormIsConfigured === "function" && window.PD_googleFormIsConfigured()) {
+        window.PD_submitGoogleForm(
+          {
+            name: name,
+            email: replyTo,
+            items: "[inquiry]",
+            message: safeMessage,
+          },
+          { target: "_blank" }
+        );
+        hint.textContent =
+          "A new tab should show Google’s confirmation page. If not, allow pop-ups and try again.";
         return;
       }
 
       if (!CONTACT_EMAIL || CONTACT_EMAIL.includes("example.com")) {
-        hint.textContent = "Set contactEmail in config.js.";
+        hint.textContent = "Set googleForm in config.js or set a valid contactEmail for email fallback.";
         return;
       }
 

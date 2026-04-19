@@ -80,17 +80,50 @@
       const email = document.getElementById("order-email")?.value.trim() || "";
       const notes = document.getElementById("order-notes")?.value.trim() || "";
 
-      if (!name || !email) {
-        if (hint) hint.textContent = "Please enter your name and email.";
+      if (!name) {
+        if (hint) hint.textContent = "Please enter your name.";
         return;
       }
-
-      if (!to || to.includes("example.com")) {
-        if (hint) hint.textContent = "Set contactEmail in config.js.";
+      if (!email) {
+        if (hint) hint.textContent = "Please enter your email.";
         return;
       }
 
       const lines = formatLines(items);
+      if (!lines.trim()) {
+        if (hint) hint.textContent = "Your cart appears empty—add items before submitting.";
+        return;
+      }
+
+      const maxItems = 12000;
+      const safeLines =
+        lines.length > maxItems ? lines.slice(0, maxItems) + "\r\n…[truncated]" : lines;
+
+      const useGoogle =
+        typeof window.PD_googleFormIsConfigured === "function" && window.PD_googleFormIsConfigured();
+
+      if (useGoogle) {
+        const payload = {
+          name: name,
+          email: email,
+          items: safeLines,
+        };
+        if (notes) {
+          payload.message = notes;
+        }
+        window.PD_submitGoogleForm(payload, { target: "_blank" });
+        if (hint) {
+          hint.textContent =
+            "A new tab should open to Google’s confirmation page. If nothing opened, allow pop-ups and try again.";
+        }
+        return;
+      }
+
+      if (!to || to.includes("example.com")) {
+        if (hint) hint.textContent = "Set googleForm in config.js or a valid contactEmail for email fallback.";
+        return;
+      }
+
       const body =
         "Printed Desert — order request\r\n\r\n" +
         "From: " +
