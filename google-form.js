@@ -17,6 +17,8 @@
    * @param {string} payload.email
    * @param {string} payload.items
    * @param {string} [payload.message] optional
+   * @param {string} [payload.address] optional (order flow)
+   * @param {string} [payload.localPickup] "TRUE" | "FALSE" (order flow; Google choice values)
    * @param {object} [opts]
    * @param {string} [opts.target='_blank'] '_blank' | '_self'
    */
@@ -27,6 +29,8 @@
     var email = (payload.email || "").trim();
     var items = (payload.items || "").trim();
     var msg = payload.message != null ? String(payload.message).trim() : "";
+    var address = payload.address != null ? String(payload.address).trim() : "";
+    var localPickup = (payload.localPickup || "").trim();
 
     var form = document.createElement("form");
     form.method = "POST";
@@ -44,6 +48,12 @@
 
     addField(GF.entryName, name);
     addField(GF.entryEmail, email);
+    if (GF.entryAddress) {
+      addField(GF.entryAddress, address);
+    }
+    if (GF.entryLocalPickup && localPickup) {
+      addField(GF.entryLocalPickup, localPickup);
+    }
     addField(GF.entryItems, items);
     if (msg) {
       addField(GF.entryMessage, msg);

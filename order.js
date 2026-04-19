@@ -41,6 +41,26 @@
 
     if (!listEl || !form) return;
 
+    function syncAddressHint() {
+      var hintEl = document.getElementById("order-address-hint");
+      if (!hintEl) return;
+      var p = document.querySelector('input[name="order-local-pickup"]:checked');
+      if (!p) {
+        hintEl.textContent = "Choose local pickup or shipping above.";
+        return;
+      }
+      if (p.value === "FALSE") {
+        hintEl.textContent = "Full shipping address required.";
+      } else {
+        hintEl.textContent = "Optional for pickup — add details if helpful, or leave blank.";
+      }
+    }
+
+    document.querySelectorAll('input[name="order-local-pickup"]').forEach(function (el) {
+      el.addEventListener("change", syncAddressHint);
+    });
+    syncAddressHint();
+
     items.forEach(function (it) {
       const li = document.createElement("li");
       li.className = "order-item-row";
@@ -78,6 +98,9 @@
 
       const name = document.getElementById("order-name")?.value.trim() || "";
       const email = document.getElementById("order-email")?.value.trim() || "";
+      const addressRaw = document.getElementById("order-address")?.value.trim() || "";
+      const pickupChecked = document.querySelector('input[name="order-local-pickup"]:checked');
+      const localPickup = pickupChecked ? pickupChecked.value : "";
       const notes = document.getElementById("order-notes")?.value.trim() || "";
 
       if (!name) {
@@ -87,6 +110,24 @@
       if (!email) {
         if (hint) hint.textContent = "Please enter your email.";
         return;
+      }
+      if (!localPickup) {
+        if (hint) hint.textContent = "Please choose local pickup or shipping.";
+        return;
+      }
+      if (localPickup === "FALSE" && !addressRaw) {
+        if (hint) hint.textContent = "Please enter a shipping address.";
+        return;
+      }
+
+      var addressOut = addressRaw;
+      if (localPickup === "TRUE" && !addressOut) {
+        addressOut = "Local pickup";
+      }
+
+      const maxAddr = 2000;
+      if (addressOut.length > maxAddr) {
+        addressOut = addressOut.slice(0, maxAddr) + "\n…[truncated]";
       }
 
       const lines = formatLines(items);
@@ -106,6 +147,8 @@
         const payload = {
           name: name,
           email: email,
+          address: addressOut,
+          localPickup: localPickup,
           items: safeLines,
         };
         if (notes) {
@@ -131,6 +174,12 @@
         "\r\n" +
         "Email: " +
         email +
+        "\r\n" +
+        "Address:\r\n" +
+        addressOut +
+        "\r\n" +
+        "Local pickup: " +
+        (localPickup === "TRUE" ? "Yes" : "No") +
         "\r\n\r\n" +
         "Items:\r\n" +
         lines +

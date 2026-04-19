@@ -7,6 +7,8 @@ window.PD_CONFIG = {
     formId: "1FAIpQLSclRXN8Tzxvg1AvZ3vjABJJtRUVpAHhU-bC7RfvZCMkGNXRGg",
     entryName: "2035482554",
     entryEmail: "2087657964",
+    entryAddress: "234455191",
+    entryLocalPickup: "20361859",
     entryItems: "1796649641",
     entryMessage: "1033488481",
   },
